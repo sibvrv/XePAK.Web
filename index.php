@@ -8,5 +8,7 @@
   </head>
   <body>
     <?= $title ?>
+    <br/>
+    <a href="/play/">Play Now</a>
   </body>
 </html>
