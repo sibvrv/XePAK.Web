@@ -1,8 +1,12 @@
+<?php 
+  $copyrightsYear = date("Y");
+  $title = "XePAK {$copyrightsYear}";
+?>
 <html>
   <head>
-    <title>XePAK</title>
+    <title><?= $title ?></title>
   </head>
   <body>
-    XePAK
+    <?= $title ?>
   </body>
 </html>
