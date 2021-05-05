@@ -1,38 +1,101 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
+  position: relative;
+  font-family: Verdana, sans-serif, Geneva;
+  min-height: 100vh;
+}
+
+.Header {
+  display: flex;
+  flex-direction: row;
+}
+
+.Logo {
+  font-weight: bold;
+  font-size: 32px;
+  margin-right: 32px;
+}
+
+.Menu {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.MenuItem {
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.Content {
+  margin: 64px;
+}
+
+.PromotionalPackage {
+  margin-top: 32px;
+  min-height: 512px;
+}
+
+.Slogan {
+  font-size: calc(16px + 3vmin);
+}
+
+.AreYouReady {
+  color: #0059AA;
+  font-weight: bold;
+  font-size: calc(10px + 2vmin);
+  margin: 48px 0;
+}
+
+.PlayNow {
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-size: calc(10px + 1vmin);
+  background: #3A3A8B;
+  color: #fff;
+  padding: 20px 32px;
+  border-radius: 20px;
+}
+
+.PlayerMiniProfile {
+  display: flex;
+  flex-direction: row;
+}
+
+.MostPowerfulWeapon {
+  flex: 1;
+  font-weight: bold;
+}
+
+.PlayerStats {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.StatsBlock {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.StatsCounter {
+  font-weight: bold;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.StatsDescription {
+  font-size: calc(10px + 0.1vmin);
 }
