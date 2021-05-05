@@ -24,7 +24,7 @@ function App() {
             <div className="AreYouReady">
               Are you ready ?
             </div>
-            <a href="/play" className="PlayNow">Play Now</a>
+            <a href="/play/" className="PlayNow">Play Now</a>
           </div>
         </div>
         <div className="PlayerMiniProfile">
