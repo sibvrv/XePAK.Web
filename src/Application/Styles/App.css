@@ -24,6 +24,7 @@ body {
   font-weight: bold;
   font-size: 32px;
   margin-right: 32px;
+  min-width: 150px;
 }
 
 .Menu {
@@ -47,7 +48,7 @@ body {
 }
 
 .PromotionalPackage {
-  margin-top: 32px;
+  padding: 32px;
   min-height: 512px;
   flex: 1;
 }
@@ -89,6 +90,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  border-top: solid 4px #000;
+  padding-top: 32px;
 }
 
 .StatsBlock {

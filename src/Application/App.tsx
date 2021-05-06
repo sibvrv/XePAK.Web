@@ -1,5 +1,6 @@
 import React from 'react';
 import './Styles/App.css';
+import logo from '../Assets/Logo/XePAK_blue.svg';
 
 function App() {
   return (
@@ -7,7 +8,7 @@ function App() {
       <div className="Content">
         <div className="Header">
           <div className="Logo">
-            XePAK
+            <img src={logo} alt="XePAK" />
           </div>
           <div className="Menu">
             <div className="MenuItem">Ranking</div>
