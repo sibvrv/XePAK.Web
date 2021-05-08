@@ -1,0 +1,33 @@
+.PlayerMiniProfile {
+  display: flex;
+  flex-direction: row;
+}
+
+.MostPowerfulWeapon {
+  flex: 1;
+  font-weight: bold;
+}
+
+.PlayerStats {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: solid 4px #000;
+  padding-top: 32px;
+}
+
+.StatsBlock {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.StatsCounter {
+  font-weight: bold;
+  font-size: calc(10px + 2vmin);
+}
+
+.StatsDescription {
+  font-size: calc(10px + 0.1vmin);
+}

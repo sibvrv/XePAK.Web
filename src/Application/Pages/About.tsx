@@ -40,10 +40,12 @@ export class About extends React.Component<IAboutProps, IAboutState> {
     return (
       <>
         This is a peer-to-peer arena-like shooter game built around ideas of destructive world, inertive movement and
-        relative projectile velocities. Should work best in webkit-based web browsers (Opera needs UDP enabled in
-        settings. Works "out of box" in Chrome).<br/>
+        relative projectile velocities. Should work best in webkit-based web browsers (Works "out of box" in
+        Chrome).<br/>
         <br/>
-        Controls: W, S, A, D, 1, 2, 3, 4, 5, 6, Left Mouse Button, Right Mouse Button, Mouse Wheel Click, Space, Ctrl,
+        <strong>Controls:</strong> W, S, A, D, 1, 2, 3, 4, 5, 6, Left Mouse Button, Right Mouse Button, Mouse Wheel
+        Click,
+        Space, Ctrl,
         Esc, Enter and Tab.<br/>
         <br/>
         There are few game modes (some might be hidden just so it is quicker to find match):<br/>
