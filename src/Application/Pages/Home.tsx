@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Header} from '../Components/Header';
-import {MainMenu} from '../Components/MainMenu/Public/MainMenu';
-import {MiniProfile} from '../Components/MiniProfile/Public/MiniProfile';
+import {MainMenu} from '../Components/MainMenu';
+import {MiniProfile} from '../Components/MiniProfile';
 
 /**
  * Home Props Interface
