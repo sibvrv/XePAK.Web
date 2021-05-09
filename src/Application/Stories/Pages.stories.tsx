@@ -1,7 +1,7 @@
 import React from 'react';
 import {About} from '../Pages/About';
 import {Home} from '../Pages/Home';
-import {Lobby} from '../Pages/Lobby';
+import {Play} from '../Pages/Play';
 
 export default {
   title: 'Pages/Common',
@@ -9,4 +9,4 @@ export default {
 
 export const _Home = () => <Home/>;
 export const _About = () => <About/>;
-export const _Lobby = () => <Lobby/>;
+export const _Play = () => <Play/>;

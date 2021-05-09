@@ -1,0 +1,101 @@
+.Container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: #fff;
+  font-size: 1.75vh;
+}
+
+.ContainerInner {
+  position: absolute;
+  left: 1vh;
+  right: 1vh;
+  top: 1vh;
+  bottom: 1vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.GameModeActions {
+  display: block;
+  padding: 1vh;
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 1vh;
+  vertical-align: middle;
+  margin-bottom: 1vh;
+}
+
+.Button {
+  display: inline-block;
+  padding: 1vh;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 1vh;
+  vertical-align: middle;
+  border: 0;
+  margin: 0.25vh;
+  cursor: pointer;
+  user-select: none;
+}
+
+.Button:hover {
+  color: #7cecff;
+}
+
+.ButtonHighlight {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.StatusField {
+  display: inline-block;
+  background-color: #000;
+  color: #666;
+  width: 100%;
+  margin-top: 1vh;
+}
+
+.Content {
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.PlayersList {
+
+}
+
+.PlayersOnline {
+  display: flex;
+  flex-direction: column;
+  width: 34%;
+}
+
+.PlayersGroup {
+  width: 32%;
+  margin-left: 1%;
+  display: none;
+}
+
+.Title {
+  font-size: 1.5vh;
+}
+
+.FloatingUserInfoContainer {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: none;
+}
+
+.FloatingUserInfo {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
