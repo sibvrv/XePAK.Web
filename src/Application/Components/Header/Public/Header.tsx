@@ -43,7 +43,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
     return (
       <div className={styles.Header}>
         <div className={styles.Logo}>
-          <img src={logo} alt="XePAK"/>
+          <a href="/"><img src={logo} alt="XePAK"/></a>
         </div>
         {children}
       </div>

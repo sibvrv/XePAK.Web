@@ -6,6 +6,36 @@
 }
 
 .MenuItem {
-  padding: 0 16px;
+  position: relative;
+  padding: 16px;
   cursor: pointer;
+  transition: all .2s;
+}
+
+.MenuItem:hover {
+  color: #fff;
+}
+
+.MenuItem:before {
+  transform: scale(0);
+  width: 100%;
+  left: 0;
+  content: "";
+  position: absolute;
+  display: block;
+  background: #3f6ad8;
+  transition: all .2s;
+
+  height: 70%;
+  top: 15%;
+  z-index: -1;
+  box-shadow: 0 16px 26px -10px rgba(63, 106, 216, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(63, 106, 216, 0.20);
+  border-radius: 100%;
+  opacity: .5;
+}
+
+.MenuItem:hover:before {
+  transform: scale(1);
+  border-radius: .25rem;
+  opacity: 1;
 }
