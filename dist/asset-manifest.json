@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.75ceec29.chunk.css",
-    "main.js": "/static/js/main.b2defb13.chunk.js",
-    "main.js.map": "/static/js/main.b2defb13.chunk.js.map",
+    "main.css": "/static/css/main.d9b07afb.chunk.css",
+    "main.js": "/static/js/main.ae382f38.chunk.js",
+    "main.js.map": "/static/js/main.ae382f38.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.d418fe86.js",
     "runtime-main.js.map": "/static/js/runtime-main.d418fe86.js.map",
     "static/js/2.52e24dd6.chunk.js": "/static/js/2.52e24dd6.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.3ce6defa.chunk.js": "/static/js/3.3ce6defa.chunk.js",
     "static/js/3.3ce6defa.chunk.js.map": "/static/js/3.3ce6defa.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.75ceec29.chunk.css.map": "/static/css/main.75ceec29.chunk.css.map",
+    "static/css/main.d9b07afb.chunk.css.map": "/static/css/main.d9b07afb.chunk.css.map",
     "static/js/2.52e24dd6.chunk.js.LICENSE.txt": "/static/js/2.52e24dd6.chunk.js.LICENSE.txt",
     "static/media/XePAK_blue.9f986595.svg": "/static/media/XePAK_blue.9f986595.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d418fe86.js",
     "static/js/2.52e24dd6.chunk.js",
-    "static/css/main.75ceec29.chunk.css",
-    "static/js/main.b2defb13.chunk.js"
+    "static/css/main.d9b07afb.chunk.css",
+    "static/js/main.ae382f38.chunk.js"
   ]
 }
