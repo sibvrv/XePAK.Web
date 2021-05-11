@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styles from '../Styles/MainMenu.module.css';
+import {Link} from 'react-router-dom';
+import {ROUTE} from '../../../../Constants/Routing';
 
 /**
  * MainMenu Props Interface
@@ -40,9 +42,9 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
   public render() {
     return (
       <div className={styles.Menu}>
-        <div className={styles.MenuItem}>Ranking</div>
-        <div className={styles.MenuItem}>Season</div>
-        <div className={styles.MenuItem}>Statistics</div>
+        <Link to={ROUTE.PAGE_RANKING} className={styles.MenuItem}>Ranking</Link>
+        <Link to={ROUTE.PAGE_SEASON} className={styles.MenuItem}>Season</Link>
+        <Link to={ROUTE.PAGE_STATISTICS} className={styles.MenuItem}>Statistics</Link>
       </div>
     );
   }

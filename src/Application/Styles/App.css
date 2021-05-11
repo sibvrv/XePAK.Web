@@ -15,14 +15,6 @@ body {
   overflow-x: hidden;
 }
 
-.Content {
-  padding: 3vmin;
-  min-height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-
 .PromotionalPackage {
   padding: 32px;
   min-height: 512px;

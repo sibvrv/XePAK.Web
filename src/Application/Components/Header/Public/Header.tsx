@@ -1,6 +1,7 @@
 import * as React from 'react';
 import logo from '../../../../Assets/Logo/XePAK_blue.svg';
 import styles from '../Styles/Header.module.css';
+import {ROUTE} from '../../../../Constants/Routing';
 
 /**
  * Header Props Interface
@@ -43,7 +44,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
     return (
       <div className={styles.Header}>
         <div className={styles.Logo}>
-          <a href="/"><img src={logo} alt="XePAK"/></a>
+          <a href={ROUTE.PAGE_HOME}><img src={logo} alt="XePAK"/></a>
         </div>
         {children}
       </div>

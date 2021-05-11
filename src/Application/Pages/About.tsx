@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {BaseLayout} from '../Layouts/BaseLayout';
 
 /**
  * About Props Interface
@@ -38,7 +39,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
    */
   public render() {
     return (
-      <>
+      <BaseLayout>
         This is a peer-to-peer arena-like shooter game built around ideas of destructive world, inertive movement and
         relative projectile velocities. Should work best in webkit-based web browsers (Works "out of box" in
         Chrome).<br/>
@@ -70,7 +71,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
         <a href='http://pieroxy.net/blog/pages/lz-string/index.html'>lz-string.js</a> and
         <a href='https://github.com/ftlabs/ftscroller'>ftscroller.js</a>.
         Music by <a href='http://freemusicarchive.org/music/maD__Alg0rh1tm/'>maD & Alg0rh1tm</a>
-      </>
+      </BaseLayout>
     );
   }
 }

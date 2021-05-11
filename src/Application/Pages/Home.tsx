@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Header} from '../Components/Header';
-import {MainMenu} from '../Components/MainMenu';
 import {MiniProfile} from '../Components/MiniProfile';
+import {ROUTE} from '../../Constants/Routing';
+import {BaseLayout} from '../Layouts/BaseLayout';
 
 /**
  * Home Props Interface
@@ -41,27 +41,24 @@ export class Home extends React.Component<IHomeProps, IHomeState> {
    */
   public render() {
     return (
-      <>
-        <div className="Content">
-          <Header>
-            <MainMenu/>
-          </Header>
+      <BaseLayout>
 
-          <div className="PromotionalPackage">
-            <div className="Slogan">
-              Become a Pro <strong>XePAK</strong> Player
-            </div>
-
-            <div>
-              <div className="AreYouReady">
-                Are you ready ?
-              </div>
-              <a href="/play/" className="PlayNow">Play Now</a>
-            </div>
+        <div className="PromotionalPackage">
+          <div className="Slogan">
+            Become a Pro <strong>XePAK</strong> Player
           </div>
-          <MiniProfile/>
+
+          <div>
+            <div className="AreYouReady">
+              Are you ready ?
+            </div>
+            <a href={ROUTE.PAGE_PLAY} className="PlayNow">Play Now</a>
+          </div>
         </div>
-      </>
+
+        <MiniProfile/>
+
+      </BaseLayout>
     );
   }
 }

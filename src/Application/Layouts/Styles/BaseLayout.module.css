@@ -1,0 +1,13 @@
+.Layout {
+  padding: 1vmin 3vmin;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
