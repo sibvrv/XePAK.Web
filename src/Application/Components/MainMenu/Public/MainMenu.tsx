@@ -7,6 +7,7 @@ import {ROUTE} from '../../../../Constants/Routing';
  * MainMenu Props Interface
  */
 export interface IMainMenuProps {
+  variation: 'primary' | 'secondary';
 }
 
 /**
@@ -14,6 +15,11 @@ export interface IMainMenuProps {
  */
 export interface IMainMenuState {
 }
+
+const stylesMap = {
+  primary: styles.Primary,
+  secondary: styles.Secondary,
+};
 
 /**
  * MainMenu
@@ -24,7 +30,9 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
   /**
    * Default Props for MainMenu Component
    */
-  public static defaultProps: Partial<IMainMenuProps> = {};
+  public static defaultProps: Partial<IMainMenuProps> = {
+    variation: 'primary',
+  };
 
   /**
    * MainMenu Component Constructor
@@ -40,8 +48,9 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
    * Render MainMenu Component
    */
   public render() {
+    const {variation} = this.props;
     return (
-      <div className={styles.Menu}>
+      <div className={stylesMap[variation]}>
         <Link to={ROUTE.PAGE_RANKING} className={styles.MenuItem}>Ranking</Link>
         <Link to={ROUTE.PAGE_SEASON} className={styles.MenuItem}>Season</Link>
         <Link to={ROUTE.PAGE_STATISTICS} className={styles.MenuItem}>Statistics</Link>

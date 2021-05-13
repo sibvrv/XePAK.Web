@@ -50,7 +50,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
       <div id="lobby_ui" className={styles.Container}>
         <div className={styles.ContainerInner}>
           <Header variation="secondary">
-            <MainMenu/>
+            <MainMenu variation="secondary"/>
           </Header>
 
           <div className={styles.GameModeActions}>

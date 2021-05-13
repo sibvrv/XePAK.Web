@@ -5,10 +5,10 @@
   align-items: center;
 }
 
-.MenuItem,
+.MenuItem:link,
 .MenuItem:active,
 .MenuItem:visited {
-  color: #333;
+  color: currentColor;
 }
 
 .MenuItem {
@@ -18,10 +18,6 @@
   padding: 16px;
   cursor: pointer;
   transition: all .2s;
-}
-
-.MenuItem:hover {
-  color: #fff;
 }
 
 .MenuItem:before {
@@ -46,4 +42,18 @@
   transform: scale(1);
   border-radius: .25rem;
   opacity: 1;
+}
+
+.Primary {
+  composes: Menu;
+  color: #333;
+}
+
+.MenuItem:hover {
+  color: #fff;
+}
+
+.Secondary {
+  composes: Menu;
+  color: var( --colors-primary--500);
 }
