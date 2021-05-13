@@ -63,13 +63,14 @@ export class About extends React.Component<IAboutProps, IAboutState> {
         * Build tool<br/>
         <br/>
         Weapons have different stats such as knockback, self-knockback, damage, speed, projectile count and spread.<br/>
-        <br/>
-        It does use
-        <a href='https://threejs.org'>three.js</a>,
-        <a href='https://peerjs.com'>peer.js</a>,
-        <a href='https://www.bfxr.net/'>bfxr.net</a>,
-        <a href='http://pieroxy.net/blog/pages/lz-string/index.html'>lz-string.js</a> and
-        <a href='https://github.com/ftlabs/ftscroller'>ftscroller.js</a>.
+        <p>
+          It does use{' '}
+          <a href='https://threejs.org'>three.js</a>,{' '}
+          <a href='https://peerjs.com'>peer.js</a>,{' '}
+          <a href='https://www.bfxr.net/'>bfxr.net</a>,{' '}
+          <a href='http://pieroxy.net/blog/pages/lz-string/index.html'>lz-string.js</a> and{' '}
+          <a href='https://github.com/ftlabs/ftscroller'>ftscroller.js</a>.
+        </p>
         Music by <a href='http://freemusicarchive.org/music/maD__Alg0rh1tm/'>maD & Alg0rh1tm</a>
       </BaseLayout>
     );

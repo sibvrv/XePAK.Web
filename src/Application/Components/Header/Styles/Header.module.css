@@ -10,3 +10,7 @@
   min-width: 150px;
 }
 
+.Logo a,
+.Logo img {
+  display: block;
+}

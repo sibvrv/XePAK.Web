@@ -6,6 +6,9 @@ import {Switch} from 'react-router';
 import {Route} from 'react-router-dom';
 import {About} from './Pages/About';
 import {Play} from './Pages/Play';
+import {Ranking} from './Pages/Ranking';
+import {Season} from './Pages/Season';
+import {Statistics} from './Pages/Statistics';
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
           <Route exact path={ROUTE.PAGE_HOME} component={Home}/>
           <Route exact path={ROUTE.PAGE_ABOUT} component={About}/>
           <Route exact path={ROUTE.PAGE_PLAY} component={Play}/>
+          <Route exact path={ROUTE.PAGE_RANKING} component={Ranking}/>
+          <Route exact path={ROUTE.PAGE_SEASON} component={Season}/>
+          <Route exact path={ROUTE.PAGE_STATISTICS} component={Statistics}/>
         </Switch>
       </Suspense>
     </div>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {MiniProfile} from '../Components/MiniProfile';
 import {ROUTE} from '../../Constants/Routing';
 import {BaseLayout} from '../Layouts/BaseLayout';
+import {Link} from 'react-router-dom';
 
 /**
  * Home Props Interface
@@ -52,7 +53,7 @@ export class Home extends React.Component<IHomeProps, IHomeState> {
             <div className="AreYouReady">
               Are you ready ?
             </div>
-            <a href={ROUTE.PAGE_PLAY} className="PlayNow">Play Now</a>
+            <Link to={ROUTE.PAGE_PLAY} className="PlayNow">Play Now</Link>
           </div>
         </div>
 

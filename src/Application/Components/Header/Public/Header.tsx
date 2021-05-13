@@ -1,12 +1,16 @@
 import * as React from 'react';
-import logo from '../../../../Assets/Logo/XePAK_blue.svg';
+import logoPrimary from '../../../../Assets/Logo/XePAK.svg';
+import logoSecondary from '../../../../Assets/Logo/XEPAK_secondary.svg';
+import logoDefault from '../../../../Assets/Logo/XePAK_default.svg';
 import styles from '../Styles/Header.module.css';
 import {ROUTE} from '../../../../Constants/Routing';
+import {Link} from 'react-router-dom';
 
 /**
  * Header Props Interface
  */
 export interface IHeaderProps {
+  variation: 'default' | 'primary' | 'secondary';
 }
 
 /**
@@ -14,6 +18,12 @@ export interface IHeaderProps {
  */
 export interface IHeaderState {
 }
+
+const logoSet = {
+  default: logoDefault,
+  primary: logoPrimary,
+  secondary: logoSecondary,
+};
 
 /**
  * Header
@@ -24,7 +34,9 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
   /**
    * Default Props for Header Component
    */
-  public static defaultProps: Partial<IHeaderProps> = {};
+  public static defaultProps: Partial<IHeaderProps> = {
+    variation: 'default',
+  };
 
   /**
    * Header Component Constructor
@@ -40,11 +52,13 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
    * Render Header Component
    */
   public render() {
-    const {children} = this.props;
+    const {children, variation} = this.props;
     return (
       <div className={styles.Header}>
         <div className={styles.Logo}>
-          <a href={ROUTE.PAGE_HOME}><img src={logo} alt="XePAK"/></a>
+          <Link to={ROUTE.PAGE_HOME}>
+            <img src={logoSet[variation]} alt="XePAK"/>
+          </Link>
         </div>
         {children}
       </div>

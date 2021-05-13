@@ -38,10 +38,9 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
    * Render Play Component
    */
   public render() {
-    const {children} = this.props;
     return (
       <>
-        <Lobby />
+        <Lobby/>
       </>
     );
   }

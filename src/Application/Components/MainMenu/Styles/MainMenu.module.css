@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+.MenuItem,
+.MenuItem:active,
+.MenuItem:visited {
+  color: #333;
+}
+
 .MenuItem {
   display: block;
   text-decoration: none;

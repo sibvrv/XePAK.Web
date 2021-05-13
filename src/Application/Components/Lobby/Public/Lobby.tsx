@@ -1,5 +1,8 @@
 import * as React from 'react';
 import styles from '../Styles/Lobby.module.css';
+import {Header} from '../../Header';
+import {MainMenu} from '../../MainMenu';
+import {Footer} from '../../Footer/Footer';
 
 /**
  * Lobby Props Interface
@@ -45,10 +48,12 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
   public render() {
     return (
       <div id="lobby_ui" className={styles.Container}>
-
         <div className={styles.ContainerInner}>
+          <Header variation="secondary">
+            <MainMenu/>
+          </Header>
 
-          <div className={`r_conteiner clickable ${styles.GameModeActions}`}>
+          <div className={styles.GameModeActions}>
             <Button onClick={() => sdNet.OfflineTraining(2)}>Play solo vs AI</Button>
             <Button onClick={() => sdNet.OfflineTraining(1)}>Play with AI vs AI</Button>
             <Button onClick={() => sdNet.OfflineTraining(0)}>Play alone</Button>
@@ -62,8 +67,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
             <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)} id="play_as1_btn">
               Quick Play As One <span className={styles.ButtonHighlight}>(4+ players, multiplayer)</span>
             </Button>
-            <br/>
-            <span id='status_field' className={styles.StatusField}>status</span>
+            <div id='status_field' className={styles.StatusField}>status</div>
           </div>
 
           <div className={styles.Content}>
@@ -90,6 +94,8 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
             </div>
 
           </div>
+
+          <Footer/>
         </div>
 
 

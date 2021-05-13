@@ -4,8 +4,15 @@
   position: fixed;
   left: 0;
   top: 0;
-  background: #fff;
-  font-size: 1.75vh;
+
+  background-color: var(--colors-bg--500);
+  background-image: radial-gradient(
+    ellipse at 33% 10%,
+    #162e46 0%,
+    transparent 75%
+  );
+  background-repeat: no-repeat;
+  color: var(--colors-on_bg--500);
 }
 
 .ContainerInner {
@@ -19,29 +26,54 @@
 }
 
 .GameModeActions {
-  display: block;
-  padding: 1vh;
-  background-color: rgba(0, 0, 0, 0.35);
-  border-radius: 1vh;
-  vertical-align: middle;
-  margin-bottom: 1vh;
+  padding: 1vmin 0;
+  margin-bottom: 1vmin;
+  font-size: calc(12px + 0.5vmin);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .Button {
+  position: relative;
   display: inline-block;
-  padding: 1vh;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.35);
-  border-radius: 1vh;
   vertical-align: middle;
-  border: 0;
   margin: 0.25vh;
   cursor: pointer;
   user-select: none;
+
+  background-color: transparent;
+  border: 1px solid var(--colors-primary--500);
+  border-radius: 2px;
+  color: var(--colors-primary--500);
+  font-family: var(--fonts-primary);
+  letter-spacing: 0.045em;
+  padding: 1vmin;
+  min-height: 40px;
+  text-align: left;
+  text-transform: uppercase;
+  clip-path: var(--ui-notch-path);
+  box-sizing: border-box;
+}
+
+.Button:before {
+  background-color: currentcolor;
+  bottom: 6px;
+  content: "";
+  display: block;
+  height: 2px;
+  position: absolute;
+  right: -6px;
+  top: auto;
+  transform: rotate(
+    -45deg
+  );
+  width: var(--ui-notch-hypotenuse);
+  z-index: 100;
 }
 
 .Button:hover {
-  color: #7cecff;
+  background-color: var(--colors-primary--800);
+  color: var(--colors-on_primary--500);
 }
 
 .ButtonHighlight {
@@ -50,10 +82,15 @@
 
 .StatusField {
   display: inline-block;
-  background-color: #000;
   color: #666;
   width: 100%;
   margin-top: 1vh;
+
+  background-color: var(--colors-bg--300);
+  border: 1px solid #22405d;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.75rem;
 }
 
 .Content {
@@ -77,10 +114,21 @@
   width: 32%;
   margin-left: 1%;
   display: none;
+
+  flex-direction: column;
 }
 
 .Title {
-  font-size: 1.5vh;
+  font-size: 1vh;
+  font-weight: bold;
+
+  background-color: var(--colors-bg--300);
+  border: 1px solid #22405d;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.75rem;
+
+  color: #2be4ea;
 }
 
 .FloatingUserInfoContainer {
