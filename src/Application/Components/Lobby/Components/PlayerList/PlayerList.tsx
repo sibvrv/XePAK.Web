@@ -29,7 +29,7 @@ const Item = (
     status?: STATUS,
     badge?: string | number
   }) =>
-  <div className={active ? styles.Active : styles.Item}>
+  <div className={active ? styles.Active : (status === STATUS.OFFLINE ? styles.Offline : styles.Item)}>
     {status === STATUS.NONE ?
       <div className={styles.Icon}>{icon}</div> :
       <div className={status === STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline}/>

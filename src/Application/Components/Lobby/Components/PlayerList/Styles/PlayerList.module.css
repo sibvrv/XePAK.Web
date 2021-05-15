@@ -50,6 +50,11 @@
   border-color: #3c7fc3
 }
 
+.Offline {
+  composes: Item;
+  color: var(--colors-secondary--900);
+}
+
 .Icon {
   margin-right: 0.75rem;
 }
