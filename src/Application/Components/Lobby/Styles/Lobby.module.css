@@ -100,10 +100,6 @@
   overflow: hidden;
 }
 
-.PlayersList {
-
-}
-
 .PlayersOnline {
   display: flex;
   flex-direction: column;
@@ -116,19 +112,6 @@
   display: none;
 
   flex-direction: column;
-}
-
-.Title {
-  font-size: 1vh;
-  font-weight: bold;
-
-  background-color: var(--colors-bg--300);
-  border: 1px solid #22405d;
-  border-radius: 3px;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 0.75rem;
-
-  color: #2be4ea;
 }
 
 .FloatingUserInfoContainer {

@@ -3,6 +3,7 @@ import styles from '../Styles/Lobby.module.css';
 import {Header} from '../../Header';
 import {MainMenu} from '../../MainMenu';
 import {Footer} from '../../Footer/Footer';
+import {PlayerList} from '../Components/PlayerList/PlayerList';
 
 /**
  * Lobby Props Interface
@@ -73,24 +74,15 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
           <div className={styles.Content}>
 
             <div className={styles.PlayersOnline}>
-              <span className={styles.Title}>Players in lobby now</span>
-              <div id="online_players" className={styles.PlayersList}>
-                Loading...
-              </div>
+              <PlayerList name="online_players" title="Players in lobby now"/>
             </div>
 
             <div className={styles.PlayersGroup}>
-              <span className={styles.Title}>Your group</span>
-              <div id="group_players" className={styles.PlayersList}>
-                Loading...
-              </div>
+              <PlayerList name="group_players" title="Your group"/>
             </div>
 
             <div className={styles.PlayersGroup}>
-              <span className={styles.Title}>Your opponent group</span>
-              <div id="enemy_group_players" className={styles.PlayersList}>
-                Loading...
-              </div>
+              <PlayerList name="enemy_group_players" title="Your opponent group"/>
             </div>
 
           </div>

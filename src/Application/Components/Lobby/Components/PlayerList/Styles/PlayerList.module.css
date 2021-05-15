@@ -1,0 +1,90 @@
+.Section {
+  padding-left: 1vmin;
+}
+
+
+.Title {
+  font-size: 1vh;
+  font-weight: bold;
+
+  background-color: var(--colors-bg--300);
+  border: 1px solid #22405d;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.75rem;
+
+  color: #2be4ea;
+}
+
+.Item {
+  display: flex;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--colors-secondary--500);
+  font-family: var(--fonts-primary);
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.25s;
+}
+
+.Item:hover {
+  background-color: var(--colors-bg--300);
+  border: 1px solid #22405d;
+}
+
+.Active {
+  composes: Item;
+  background-color: #1c3754;
+  border-color: #30669c;
+}
+
+.Active:hover {
+  background-color: #224467;
+  border-color: #3c7fc3
+}
+
+.Icon {
+  margin-right: 0.75rem;
+}
+
+.Element {
+  flex: 1;
+}
+
+.Loading {
+  text-align: center;
+}
+
+.LoadingText {
+  margin: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.LoadingRing {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.LoadingRing:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid var(--colors-primary--200);
+  border-color: var(--colors-primary--200) transparent var(--colors-primary--200) transparent;
+  animation: LoadingRingAnim 1.2s linear infinite;
+}
+
+@keyframes LoadingRingAnim {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
