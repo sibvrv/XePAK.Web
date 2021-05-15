@@ -57,7 +57,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
       <div className={styles.Header}>
         <div className={styles.Logo}>
           <Link to={ROUTE.PAGE_HOME}>
-            <img src={logoSet[variation]} alt="XePAK"/>
+            <img src={logoSet[variation]} alt="XEPAK"/>
           </Link>
         </div>
         {children}

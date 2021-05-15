@@ -46,7 +46,7 @@ export class Home extends React.Component<IHomeProps, IHomeState> {
 
         <div className="PromotionalPackage">
           <div className="Slogan">
-            Become a Pro <strong>XePAK</strong> Player
+            Become a Pro <strong>XEPAK</strong> Player
           </div>
 
           <div>

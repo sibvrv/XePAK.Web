@@ -1,7 +1,7 @@
 {
   "name": "xepak-web",
   "version": "1.0.0",
-  "description": "XePAK Website",
+  "description": "XEPAK Website",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",

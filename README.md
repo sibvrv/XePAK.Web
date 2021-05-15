@@ -1,5 +1,5 @@
-# XePAK.Web
-XePAK Website
+# XEPAK.Web
+XEPAK Website
 
 
 ## Available Scripts
