@@ -27,7 +27,7 @@ body {
   --colors-on_bg--500: var(--colors-primary--500);
   --colors-on_tertiary--500: var(--colors-bg--300);
   --colors-on_primary--500: var(--colors-primary--200);
-  --colors-active--500: #2bfea0;
+  --colors-active--500: #2bfe4e;
   --fonts-primary: "Rajdhani", sans-serif;
   --fonts-secondary: "VT323", monospace;
   --ui-glow: 0 0 5px var(--colors-primary--500);

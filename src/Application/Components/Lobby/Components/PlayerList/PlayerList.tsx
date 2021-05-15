@@ -15,9 +15,24 @@ export interface IPlayerListProps {
 export interface IPlayerListState {
 }
 
-const Item = ({icon, title, active}: { title: string, active?: boolean, icon: any }) =>
+enum STATUS {
+  NONE,
+  ONLINE,
+  OFFLINE
+}
+
+const Item = (
+  {icon, title, active, status = STATUS.NONE}: {
+    title: string,
+    active?: boolean,
+    icon?: string,
+    status?: STATUS
+  }) =>
   <div className={active ? styles.Active : styles.Item}>
-    <div className={styles.Icon}>{icon}</div>
+    {status === STATUS.NONE ?
+      <div className={styles.Icon}>{icon}</div> :
+      <div className={status === STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline}/>
+    }
     <div className={styles.Element}>{title}</div>
   </div>;
 
@@ -58,7 +73,16 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
           <Item title="Player 1" icon="#"/>
           <Item title="Player 2" icon="#" active/>
           <Item title="Player 3" icon="#"/>
-          <Item title="Player 4" icon="#"/>
+          <Item title="Player 4" status={STATUS.ONLINE}/>
+          <Item title="Player 5" status={STATUS.ONLINE}/>
+          <Item title="Player 6" status={STATUS.ONLINE}/>
+          <Item title="Player 7" status={STATUS.ONLINE}/>
+          <Item title="Player 8" status={STATUS.OFFLINE}/>
+          <Item title="Player 9" status={STATUS.OFFLINE}/>
+          <Item title="Player 10" status={STATUS.OFFLINE}/>
+          <Item title="Player 11" status={STATUS.OFFLINE}/>
+          <Item title="Player 12" status={STATUS.OFFLINE}/>
+          <Item title="Player 13" status={STATUS.OFFLINE}/>
         </div>
       </>
     );

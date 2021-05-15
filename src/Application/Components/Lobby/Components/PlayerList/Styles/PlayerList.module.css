@@ -20,12 +20,18 @@
   display: flex;
   cursor: pointer;
 
+  line-height: 1.4rem;
+
   border: 1px solid transparent;
   border-radius: 3px;
   color: var(--colors-secondary--500);
   font-family: var(--fonts-primary);
   padding: 0.5rem 0.75rem;
   transition: background-color 0.25s;
+}
+
+.Item + .Item {
+  margin-top: 0.125rem;
 }
 
 .Item:hover {
@@ -46,6 +52,31 @@
 
 .Icon {
   margin-right: 0.75rem;
+}
+
+.Status {
+  margin-right: 0.75rem;
+}
+
+.Status:after {
+  background-color: var(--colors-active--500);
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 0.5em;
+  width: 0.5em;
+}
+
+.StatusOnline {
+  composes: Status;
+}
+
+.StatusOffline {
+  composes: Status;
+}
+
+.StatusOffline::after {
+  background-color: var(--colors-primary--700);
 }
 
 .Element {
