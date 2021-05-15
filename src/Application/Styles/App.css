@@ -23,7 +23,7 @@ body {
   --colors-primary--900: #17293a;
   --colors-secondary--500: #2be4ea;
   --colors-secondary--900: #295459;
-  --colors-tertiary--500: #fed33f;
+  --colors-tertiary--500: #bcfe3f;
   --colors-on_bg--500: var(--colors-primary--500);
   --colors-on_tertiary--500: var(--colors-bg--300);
   --colors-on_primary--500: var(--colors-primary--200);

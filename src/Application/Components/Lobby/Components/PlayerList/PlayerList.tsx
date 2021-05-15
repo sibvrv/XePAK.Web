@@ -22,11 +22,12 @@ enum STATUS {
 }
 
 const Item = (
-  {icon, title, active, status = STATUS.NONE}: {
+  {icon, title, active, status = STATUS.NONE, badge}: {
     title: string,
     active?: boolean,
     icon?: string,
-    status?: STATUS
+    status?: STATUS,
+    badge?: string | number
   }) =>
   <div className={active ? styles.Active : styles.Item}>
     {status === STATUS.NONE ?
@@ -34,6 +35,7 @@ const Item = (
       <div className={status === STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline}/>
     }
     <div className={styles.Element}>{title}</div>
+    {badge && <div className={styles.Badge}>{badge}</div>}
   </div>;
 
 /**
@@ -70,15 +72,15 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
             <div className={styles.LoadingRing}/>
             <div className={styles.LoadingText}>Loading</div>
           </div>
-          <Item title="Player 1" icon="#"/>
+          <Item title="Player 1" icon="#" badge="You"/>
           <Item title="Player 2" icon="#" active/>
           <Item title="Player 3" icon="#"/>
           <Item title="Player 4" status={STATUS.ONLINE}/>
-          <Item title="Player 5" status={STATUS.ONLINE}/>
+          <Item title="Player 5" status={STATUS.ONLINE} badge={5}/>
           <Item title="Player 6" status={STATUS.ONLINE}/>
           <Item title="Player 7" status={STATUS.ONLINE}/>
           <Item title="Player 8" status={STATUS.OFFLINE}/>
-          <Item title="Player 9" status={STATUS.OFFLINE}/>
+          <Item title="Player 9" status={STATUS.OFFLINE} badge={99}/>
           <Item title="Player 10" status={STATUS.OFFLINE}/>
           <Item title="Player 11" status={STATUS.OFFLINE}/>
           <Item title="Player 12" status={STATUS.OFFLINE}/>
