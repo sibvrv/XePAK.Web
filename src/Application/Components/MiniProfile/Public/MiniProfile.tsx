@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styles from '../Styles/MiniProfile.module.css';
+import {IPlayerStatsState} from "../../../../Store/Reducers/PlayerStats";
 
 /**
  * MiniProfile Props Interface
  */
-export interface IMiniProfileProps {
+export interface IMiniProfileProps extends IPlayerStatsState {
 }
 
 /**
@@ -38,6 +39,7 @@ export class MiniProfile extends React.Component<IMiniProfileProps, IMiniProfile
    * Render MiniProfile Component
    */
   public render() {
+    const {winRate, matchPlayed} = this.props;
     return (
       <div className={styles.PlayerMiniProfile}>
         <div className={styles.MostPowerfulWeapon}>
@@ -45,11 +47,11 @@ export class MiniProfile extends React.Component<IMiniProfileProps, IMiniProfile
         </div>
         <div className={styles.PlayerStats}>
           <div className={styles.StatsBlock}>
-            <div className={styles.StatsCounter}>95%</div>
+            <div className={styles.StatsCounter}>{winRate}%</div>
             <div className={styles.StatsDescription}>Win Rate</div>
           </div>
           <div className={styles.StatsBlock}>
-            <div className={styles.StatsCounter}>32134</div>
+            <div className={styles.StatsCounter}>{matchPlayed}</div>
             <div className={styles.StatsDescription}>Match Played</div>
           </div>
         </div>
