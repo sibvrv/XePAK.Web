@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {BaseLayout} from '../Layouts/BaseLayout';
+import CareerStatistics from "../Components/Statistics/CareerStatistics";
 
 /**
  * Statistics Props Interface
@@ -38,10 +39,9 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
    * Render Statistics Component
    */
   public render() {
-    const {children} = this.props;
     return (
       <BaseLayout>
-        {children}
+        <CareerStatistics/>
       </BaseLayout>
     );
   }

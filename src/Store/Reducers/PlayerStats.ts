@@ -14,8 +14,10 @@ export interface IPlayerStatsState {
   // Career statistics
   matchPlayed: number;
   timePlayed: number;
-  winRate: number; // Win/Loss Ratio
+  wins: number;
+  losses: number;
   kills: number;
+  deaths: number;
   averageLifetime: number
   KDR: number; // Kill Death Ratio
 
@@ -28,8 +30,10 @@ export interface IPlayerStatsState {
 const initialState: IPlayerStatsState = {
   matchPlayed: 0,
   timePlayed: 0,
-  winRate: 0,
+  wins: 0,
+  losses: 0,
   kills: 0,
+  deaths: 0,
   averageLifetime: 0,
   KDR: 0,
 

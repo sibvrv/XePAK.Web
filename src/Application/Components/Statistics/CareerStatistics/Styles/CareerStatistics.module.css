@@ -1,0 +1,32 @@
+.Container {
+  padding: 2vmin;
+
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(101, 126, 174, .25);
+  border-radius: 9px;
+}
+
+.Title {
+  font-weight: bold;
+  line-height: 1.5;
+  color: #212837;
+  margin-bottom: 1vmin;
+}
+
+.Content {
+  line-height: 1.7;
+}
+
+.Item {
+  display: flex;
+}
+
+.ItemTitle {
+  flex: 1;
+  color: #444;
+}
+
+.ItemValue {
+  text-align: right;
+}

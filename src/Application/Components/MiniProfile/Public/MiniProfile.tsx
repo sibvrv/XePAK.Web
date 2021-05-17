@@ -39,7 +39,8 @@ export class MiniProfile extends React.Component<IMiniProfileProps, IMiniProfile
    * Render MiniProfile Component
    */
   public render() {
-    const {winRate, matchPlayed} = this.props;
+    const {wins, losses, matchPlayed} = this.props;
+    const winRate = wins * 100 / ((wins + losses) || 1);
     return (
       <div className={styles.PlayerMiniProfile}>
         <div className={styles.MostPowerfulWeapon}>
