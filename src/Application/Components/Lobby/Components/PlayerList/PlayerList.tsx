@@ -1,5 +1,22 @@
 import * as React from 'react';
 import styles from './Styles/PlayerList.module.css';
+import {Loading} from "../../../Common/Loading/Loading";
+import {noop} from "../../../../../Framework/Common/noop";
+
+export enum PLAYER_STATUS {
+  NONE,
+  ONLINE,
+  OFFLINE
+}
+
+export interface IPlayerInfo {
+  uid: string;
+  title: string;
+  active?: boolean;
+  icon?: string;
+  status?: PLAYER_STATUS;
+  badge?: string | number;
+}
 
 /**
  * PlayerList Props Interface
@@ -7,6 +24,9 @@ import styles from './Styles/PlayerList.module.css';
 export interface IPlayerListProps {
   name: string;
   title: string;
+  onClick: (e: React.MouseEvent, uid: string) => void;
+  players: IPlayerInfo[];
+  active?: string;
 }
 
 /**
@@ -15,24 +35,21 @@ export interface IPlayerListProps {
 export interface IPlayerListState {
 }
 
-enum STATUS {
-  NONE,
-  ONLINE,
-  OFFLINE
-}
-
 const Item = (
-  {icon, title, active, status = STATUS.NONE, badge}: {
-    title: string,
-    active?: boolean,
-    icon?: string,
-    status?: STATUS,
-    badge?: string | number
-  }) =>
-  <div className={active ? styles.Active : (status === STATUS.OFFLINE ? styles.Offline : styles.Item)}>
-    {status === STATUS.NONE ?
+  {
+    uid,
+    icon,
+    title,
+    active,
+    status = PLAYER_STATUS.NONE,
+    badge,
+    onClick
+  }: IPlayerInfo & { onClick: (e: React.MouseEvent, uid: string) => void }) =>
+  <div className={active ? styles.Active : (status === PLAYER_STATUS.OFFLINE ? styles.Offline : styles.Item)}
+       onClick={(e) => onClick(e, uid)}>
+    {status === PLAYER_STATUS.NONE ?
       <div className={styles.Icon}>{icon}</div> :
-      <div className={status === STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline}/>
+      <div className={status === PLAYER_STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline}/>
     }
     <div className={styles.Element}>{title}</div>
     {badge && <div className={styles.Badge}>{badge}</div>}
@@ -47,7 +64,10 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
   /**
    * Default Props for PlayerList Component
    */
-  public static defaultProps: Partial<IPlayerListProps> = {};
+  public static defaultProps: Partial<IPlayerListProps> = {
+    onClick: noop,
+    players: []
+  };
 
   /**
    * PlayerList Component Constructor
@@ -63,30 +83,23 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
    * Render PlayerList Component
    */
   public render() {
-    const {name, title} = this.props;
+    const {name, title, players, onClick, active} = this.props;
     return (
       <>
         <span className={styles.Title}>{title}</span>
+
+        <Loading/>
+
         <div id={name} className={styles.Section}>
-          <div className={styles.Loading}>
-            <div className={styles.LoadingRing}/>
-            <div className={styles.LoadingText}>Loading</div>
-          </div>
-          <Item title="Player 1" icon="#" badge="You"/>
-          <Item title="Player 2" icon="#" active/>
-          <Item title="Player 3" icon="#"/>
-          <Item title="Player 4" status={STATUS.ONLINE}/>
-          <Item title="Player 5" status={STATUS.ONLINE} badge={5}/>
-          <Item title="Player 6" status={STATUS.ONLINE}/>
-          <Item title="Player 7" status={STATUS.ONLINE}/>
-          <Item title="Player 8" status={STATUS.OFFLINE}/>
-          <Item title="Player 9" status={STATUS.OFFLINE} badge={99}/>
-          <Item title="Player 10" status={STATUS.OFFLINE}/>
-          <Item title="Player 11" status={STATUS.OFFLINE}/>
-          <Item title="Player 12" status={STATUS.OFFLINE}/>
-          <Item title="Player 13" status={STATUS.OFFLINE}/>
+          {players.map(player =>
+            <Item key={`pl_${player.title}`}
+                  onClick={onClick}
+                  active={player.uid === active}
+                  {...player}
+            />)}
         </div>
       </>
     );
   }
+
 }

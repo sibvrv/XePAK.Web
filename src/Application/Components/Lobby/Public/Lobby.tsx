@@ -3,7 +3,7 @@ import styles from '../Styles/Lobby.module.css';
 import {Header} from '../../Header';
 import {MainMenu} from '../../MainMenu';
 import {Footer} from '../../Footer/Footer';
-import {PlayerList} from '../Components/PlayerList/PlayerList';
+import {IPlayerInfo, PLAYER_STATUS, PlayerList} from '../Components/PlayerList/PlayerList';
 import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
 
 /**
@@ -16,6 +16,8 @@ export interface ILobbyProps extends ILobbyReducerState {
  * Lobby State Interface
  */
 export interface ILobbyState {
+  userDialog: { uid: string; x: number; y: number } | false;
+  activePlayerUID: string,
 }
 
 declare let sdNet: any;
@@ -30,6 +32,11 @@ const Button = ({onClick, children, id}: { onClick: () => void, id?: string, chi
  */
 export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
   /**
+   * Variables
+   */
+  hideDialogTimer = 0;
+
+  /**
    * Default Props for Lobby Component
    */
   public static defaultProps: Partial<ILobbyProps> = {};
@@ -41,7 +48,49 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
    */
   constructor(props: ILobbyProps, context?: any) {
     super(props, context);
-    this.state = {};
+    this.state = {
+      userDialog: false,
+      activePlayerUID: '',
+    };
+  }
+
+  private clearTimer() {
+    if (this.hideDialogTimer) {
+      clearTimeout(this.hideDialogTimer);
+      this.hideDialogTimer = 0;
+    }
+  }
+
+  private startTimer() {
+    this.clearTimer();
+
+    this.hideDialogTimer = window.setTimeout(() => {
+      this.hideDialogs();
+      this.hideDialogTimer = 0;
+    }, 5000);
+  }
+
+  private onUserClick = (e: React.MouseEvent, uid: string) => {
+    e.stopPropagation();
+
+    if (e.currentTarget) {
+      const pos = e.currentTarget.getBoundingClientRect();
+      this.setState({
+        activePlayerUID: uid,
+        userDialog: {
+          uid,
+          x: pos.left,
+          y: pos.top + pos.height
+        }
+      })
+      this.startTimer();
+    }
+  }
+
+  public hideDialogs = () => {
+    this.setState({
+      userDialog: false
+    });
   }
 
   /**
@@ -49,8 +98,28 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
    */
   public render() {
     const {status} = this.props;
+    const {userDialog, activePlayerUID} = this.state;
+
+    const myUid = '1';
+
+    const players: IPlayerInfo[] = [
+      {uid: '1', title: "Player 1", icon: "#", badge: "You"},
+      {uid: '2', title: "Player 2", icon: "#"},
+      {uid: '3', title: "Player 3", icon: "#"},
+      {uid: '4', title: "Player 4", status: PLAYER_STATUS.ONLINE},
+      {uid: '5', title: "Player 5", status: PLAYER_STATUS.ONLINE, badge: 5},
+      {uid: '6', title: "Player 6", status: PLAYER_STATUS.ONLINE},
+      {uid: '7', title: "Player 7", status: PLAYER_STATUS.ONLINE},
+      {uid: '8', title: "Player 8", status: PLAYER_STATUS.OFFLINE},
+      {uid: '9', title: "Player 9", status: PLAYER_STATUS.OFFLINE, badge: 99},
+      {uid: '10', title: "Player 10", status: PLAYER_STATUS.OFFLINE},
+      {uid: '11', title: "Player 11", status: PLAYER_STATUS.OFFLINE},
+      {uid: '12', title: "Player 12", status: PLAYER_STATUS.OFFLINE},
+      {uid: '13', title: "Player 13", status: PLAYER_STATUS.OFFLINE},
+    ]
+
     return (
-      <div id="lobby_ui" className={styles.Container}>
+      <div id="lobby_ui" className={styles.Container} onClick={this.hideDialogs}>
         <div className={styles.ContainerInner}>
           <Header variation="secondary">
             <MainMenu variation="secondary"/>
@@ -76,15 +145,19 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
           <div className={styles.Content}>
 
             <div className={styles.PlayersOnline}>
-              <PlayerList name="online_players" title="Players in lobby now"/>
+              <PlayerList name="online_players"
+                          title="Players in lobby now"
+                          active={activePlayerUID}
+                          onClick={this.onUserClick}
+                          players={players}/>
             </div>
 
             <div className={styles.PlayersGroup}>
-              <PlayerList name="group_players" title="Your group"/>
+              <PlayerList name="group_players" title="Your group" onClick={this.onUserClick}/>
             </div>
 
             <div className={styles.PlayersGroup}>
-              <PlayerList name="enemy_group_players" title="Your opponent group"/>
+              <PlayerList name="enemy_group_players" title="Your opponent group" onClick={this.onUserClick}/>
             </div>
 
           </div>
@@ -93,15 +166,23 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
         </div>
 
 
-        <div id="floating_user_info_bg" className={styles.FloatingUserInfoContainer} onMouseDown={(event) => {
-          // if (event.target === this) {
-          //   sdNet.CloseUserMenu();
-          // }
-        }}>
-          <div id="floating_user_info" className={styles.FloatingUserInfo}>
-          </div>
-        </div>
+        {userDialog && <div className={styles.FloatingUserInfo}
+                            onClick={(e) => e.stopPropagation()}
+                            onMouseEnter={() => this.clearTimer()}
+                            onMouseLeave={() => this.startTimer()}
+                            style={{left: userDialog.x, top: userDialog.y}}>
+          {userDialog.uid !== myUid && <div>
+            <div>Invite to my teammate group</div>
+            <div>Invite as opponent group leader</div>
+          </div>}
+
+          {userDialog.uid === myUid && <div>
+            <div>Reset my teammate group</div>
+            <div>Reset opponent group</div>
+          </div>}
+        </div>}
       </div>
     );
   }
+
 }
