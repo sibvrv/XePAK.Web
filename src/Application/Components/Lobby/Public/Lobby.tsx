@@ -4,11 +4,12 @@ import {Header} from '../../Header';
 import {MainMenu} from '../../MainMenu';
 import {Footer} from '../../Footer/Footer';
 import {PlayerList} from '../Components/PlayerList/PlayerList';
+import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
 
 /**
  * Lobby Props Interface
  */
-export interface ILobbyProps {
+export interface ILobbyProps extends ILobbyReducerState {
 }
 
 /**
@@ -47,6 +48,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
    * Render Lobby Component
    */
   public render() {
+    const {status} = this.props;
     return (
       <div id="lobby_ui" className={styles.Container}>
         <div className={styles.ContainerInner}>
@@ -68,7 +70,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
             <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)} id="play_as1_btn">
               Quick Play As One <span className={styles.ButtonHighlight}>(4+ players, multiplayer)</span>
             </Button>
-            <div id='status_field' className={styles.StatusField}>status</div>
+            <div id='status_field' className={styles.StatusField}>{status}</div>
           </div>
 
           <div className={styles.Content}>
