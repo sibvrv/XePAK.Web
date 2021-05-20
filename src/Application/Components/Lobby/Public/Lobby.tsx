@@ -95,6 +95,10 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
     });
   }
 
+  public componentWillUnmount() {
+    this.clearTimer();
+  }
+
   /**
    * Render Lobby Component
    */
