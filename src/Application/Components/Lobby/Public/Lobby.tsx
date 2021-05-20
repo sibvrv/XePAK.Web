@@ -4,9 +4,11 @@ import {Header} from '../../Header';
 import {MainMenu} from '../../MainMenu';
 import {Footer} from '../../Footer/Footer';
 import {PlayerList} from '../Components/PlayerList/PlayerList';
-import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
-import {ContextMenu} from "../Components/ContextMenu/ContextMenu";
-import {ContextMenuItem} from "../Components/ContextMenu/ContextMenuItem";
+import {ILobbyReducerState, LOBBY_ACTIONS} from '../../../../Store/Reducers/LobbyReducer';
+import {ContextMenu} from '../Components/ContextMenu/ContextMenu';
+import {ContextMenuItem} from '../Components/ContextMenu/ContextMenuItem';
+import store from '../../../../Store/Store';
+import {passwordGenerator} from '../../../../Framework/Password/PasswordGenerator';
 
 /**
  * Lobby Props Interface
@@ -82,17 +84,33 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
         userDialog: {
           uid,
           x: pos.left,
-          y: pos.top + pos.height
-        }
-      })
+          y: pos.top + pos.height,
+        },
+      });
       this.startTimer();
     }
-  }
+  };
 
   public hideDialogs = () => {
     this.setState({
-      userDialog: false
+      userDialog: false,
     });
+  };
+
+  componentDidMount() {
+    const {uid, pass} = this.props;
+    if (!uid || !pass) {
+      store.dispatch({
+        type: 'FETCH',
+        payload: {
+          action: LOBBY_ACTIONS.QUICK_REGISTER,
+          params: {
+            request: 'quick_register',
+            pass: passwordGenerator()
+          }
+        },
+      });
+    }
   }
 
   public componentWillUnmount() {
