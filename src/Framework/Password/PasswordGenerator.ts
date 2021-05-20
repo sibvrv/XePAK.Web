@@ -1,6 +1,6 @@
 const string = 'abcdefghijklmnopqrstuvwxyz'; //to upper
 const numeric = '0123456789';
-const punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+const punctuation = '!@#$%^&*()_+~`|}{[]\\:;?><,./-=';
 
 /**
  * Simple Password Generator
