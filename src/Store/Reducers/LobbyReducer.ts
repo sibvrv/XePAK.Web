@@ -38,8 +38,15 @@ const initialState: ILobbyReducerState = {
     {uid: '12', title: "Player 12", status: PLAYER_STATUS.OFFLINE},
     {uid: '13', title: "Player 13", status: PLAYER_STATUS.OFFLINE},
   ],
-  playersGroup: [],
-  playersEnemyGroup: [],
+  playersGroup: [
+    {uid: '6', title: "Player 6", status: PLAYER_STATUS.ONLINE},
+    {uid: '7', title: "Player 7", status: PLAYER_STATUS.ONLINE},
+  ],
+  playersEnemyGroup: [
+    {uid: '4', title: "Player 4", status: PLAYER_STATUS.ONLINE},
+    {uid: '5', title: "Player 5", status: PLAYER_STATUS.ONLINE},
+    {uid: '6', title: "Player 6", status: PLAYER_STATUS.ONLINE},
+  ],
 };
 
 export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel>(

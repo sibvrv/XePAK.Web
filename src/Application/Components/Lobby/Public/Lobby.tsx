@@ -142,21 +142,23 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
                           players={playersOnline}/>
             </div>
 
+            {playersGroup.length > 0 &&
             <div className={styles.PlayersGroup}>
               <PlayerList name="group_players"
                           title="Your group"
                           onClick={this.onUserClick}
                           players={playersGroup}
               />
-            </div>
+            </div>}
 
+            {playersEnemyGroup.length > 0 &&
             <div className={styles.PlayersGroup}>
               <PlayerList name="enemy_group_players"
                           title="Your opponent group"
                           onClick={this.onUserClick}
                           players={playersEnemyGroup}
               />
-            </div>
+            </div>}
 
           </div>
 

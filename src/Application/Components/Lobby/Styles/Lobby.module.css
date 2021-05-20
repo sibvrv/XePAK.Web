@@ -111,7 +111,7 @@
 .PlayersGroup {
   width: 32%;
   margin-left: 1%;
-  display: none;
+  display: flex;
 
   flex-direction: column;
 }
