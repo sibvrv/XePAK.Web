@@ -5,6 +5,8 @@ import {MainMenu} from '../../MainMenu';
 import {Footer} from '../../Footer/Footer';
 import {IPlayerInfo, PLAYER_STATUS, PlayerList} from '../Components/PlayerList/PlayerList';
 import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
+import {ContextMenu} from "../Components/ContextMenu/ContextMenu";
+import {ContextMenuItem} from "../Components/ContextMenu/ContextMenuItem";
 
 /**
  * Lobby Props Interface
@@ -171,15 +173,19 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
                             onMouseEnter={() => this.clearTimer()}
                             onMouseLeave={() => this.startTimer()}
                             style={{left: userDialog.x, top: userDialog.y}}>
-          {userDialog.uid !== myUid && <div>
-            <div>Invite to my teammate group</div>
-            <div>Invite as opponent group leader</div>
-          </div>}
+          <ContextMenu>
+            {userDialog.uid !== myUid &&
+            <>
+              <ContextMenuItem>Invite to my teammate group</ContextMenuItem>
+              <ContextMenuItem>Invite as opponent group leader</ContextMenuItem>
+            </>}
 
-          {userDialog.uid === myUid && <div>
-            <div>Reset my teammate group</div>
-            <div>Reset opponent group</div>
-          </div>}
+            {userDialog.uid === myUid &&
+            <>
+              <ContextMenuItem>Reset my teammate group</ContextMenuItem>
+              <ContextMenuItem>Reset opponent group</ContextMenuItem>
+            </>}
+          </ContextMenu>
         </div>}
       </div>
     );
