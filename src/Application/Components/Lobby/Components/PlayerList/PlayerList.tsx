@@ -22,7 +22,6 @@ export interface IPlayerInfo {
  * PlayerList Props Interface
  */
 export interface IPlayerListProps {
-  name: string;
   title: string;
   onClick: (e: React.MouseEvent, uid: string) => void;
   players: IPlayerInfo[];
@@ -83,14 +82,14 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
    * Render PlayerList Component
    */
   public render() {
-    const {name, title, players, onClick, active} = this.props;
+    const {title, players, onClick, active} = this.props;
     return (
       <>
         <span className={styles.Title}>{title}</span>
 
         <Loading/>
 
-        <div id={name} className={styles.Section}>
+        <div className={styles.Section}>
           {players.map(player =>
             <Item key={`pl_${player.title}`}
                   onClick={onClick}

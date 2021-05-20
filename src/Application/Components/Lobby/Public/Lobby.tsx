@@ -135,8 +135,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
           <div className={styles.Content}>
 
             <div className={styles.PlayersOnline}>
-              <PlayerList name="online_players"
-                          title="Players in lobby now"
+              <PlayerList title="Players in lobby now"
                           active={activePlayerUID}
                           onClick={this.onUserClick}
                           players={playersOnline}/>
@@ -144,8 +143,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
 
             {playersGroup.length > 0 &&
             <div className={styles.PlayersGroup}>
-              <PlayerList name="group_players"
-                          title="Your group"
+              <PlayerList title="Your group"
                           onClick={this.onUserClick}
                           players={playersGroup}
               />
@@ -153,8 +151,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
 
             {playersEnemyGroup.length > 0 &&
             <div className={styles.PlayersGroup}>
-              <PlayerList name="enemy_group_players"
-                          title="Your opponent group"
+              <PlayerList title="Your opponent group"
                           onClick={this.onUserClick}
                           players={playersEnemyGroup}
               />
