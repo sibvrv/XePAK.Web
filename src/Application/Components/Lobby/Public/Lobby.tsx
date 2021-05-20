@@ -3,7 +3,7 @@ import styles from '../Styles/Lobby.module.css';
 import {Header} from '../../Header';
 import {MainMenu} from '../../MainMenu';
 import {Footer} from '../../Footer/Footer';
-import {IPlayerInfo, PLAYER_STATUS, PlayerList} from '../Components/PlayerList/PlayerList';
+import {PlayerList} from '../Components/PlayerList/PlayerList';
 import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
 import {ContextMenu} from "../Components/ContextMenu/ContextMenu";
 import {ContextMenuItem} from "../Components/ContextMenu/ContextMenuItem";
@@ -103,26 +103,10 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
    * Render Lobby Component
    */
   public render() {
-    const {status} = this.props;
+    const {status, playersOnline, playersGroup, playersEnemyGroup} = this.props;
     const {userDialog, activePlayerUID} = this.state;
 
     const myUid = '1';
-
-    const players: IPlayerInfo[] = [
-      {uid: '1', title: "Player 1", icon: "#", badge: "You"},
-      {uid: '2', title: "Player 2", icon: "#"},
-      {uid: '3', title: "Player 3", icon: "#"},
-      {uid: '4', title: "Player 4", status: PLAYER_STATUS.ONLINE},
-      {uid: '5', title: "Player 5", status: PLAYER_STATUS.ONLINE, badge: 5},
-      {uid: '6', title: "Player 6", status: PLAYER_STATUS.ONLINE},
-      {uid: '7', title: "Player 7", status: PLAYER_STATUS.ONLINE},
-      {uid: '8', title: "Player 8", status: PLAYER_STATUS.OFFLINE},
-      {uid: '9', title: "Player 9", status: PLAYER_STATUS.OFFLINE, badge: 99},
-      {uid: '10', title: "Player 10", status: PLAYER_STATUS.OFFLINE},
-      {uid: '11', title: "Player 11", status: PLAYER_STATUS.OFFLINE},
-      {uid: '12', title: "Player 12", status: PLAYER_STATUS.OFFLINE},
-      {uid: '13', title: "Player 13", status: PLAYER_STATUS.OFFLINE},
-    ]
 
     return (
       <div id="lobby_ui" className={styles.Container} onClick={this.hideDialogs}>
@@ -155,15 +139,23 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
                           title="Players in lobby now"
                           active={activePlayerUID}
                           onClick={this.onUserClick}
-                          players={players}/>
+                          players={playersOnline}/>
             </div>
 
             <div className={styles.PlayersGroup}>
-              <PlayerList name="group_players" title="Your group" onClick={this.onUserClick}/>
+              <PlayerList name="group_players"
+                          title="Your group"
+                          onClick={this.onUserClick}
+                          players={playersGroup}
+              />
             </div>
 
             <div className={styles.PlayersGroup}>
-              <PlayerList name="enemy_group_players" title="Your opponent group" onClick={this.onUserClick}/>
+              <PlayerList name="enemy_group_players"
+                          title="Your opponent group"
+                          onClick={this.onUserClick}
+                          players={playersEnemyGroup}
+              />
             </div>
 
           </div>
