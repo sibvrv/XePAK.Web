@@ -21,7 +21,9 @@ export interface ILobbyProps extends ILobbyReducerState {
  */
 export interface ILobbyState {
   userDialog: { uid: string; x: number; y: number } | false;
-  activePlayerUID: string,
+  playerUID: string;
+  groupUID: string;
+  enemyGroupUID: string;
 }
 
 declare let sdNet: any;
@@ -34,7 +36,7 @@ const Button = ({onClick, children, id}: { onClick: () => void, id?: string, chi
  * @class Lobby
  * @extends Component
  */
-export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
+export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
   /**
    * Variables
    */
@@ -54,7 +56,9 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
     super(props, context);
     this.state = {
       userDialog: false,
-      activePlayerUID: '',
+      playerUID: '',
+      groupUID: '',
+      enemyGroupUID: ''
     };
   }
 
@@ -74,13 +78,30 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
     }, 5000);
   }
 
-  private onUserClick = (e: React.MouseEvent, uid: string) => {
+  private onOnlinePlayerClick = (e: React.MouseEvent, uid: string) => this.activatePlayerContext(e, {
+    playerUID: uid,
+  }, uid);
+
+  private onGroupPlayerClick = (e: React.MouseEvent, uid: string) => this.activatePlayerContext(e, {
+    groupUID: uid,
+  }, uid);
+
+  private onEnemyGroupPlayerClick = (e: React.MouseEvent, uid: string) => this.activatePlayerContext(e, {
+    enemyGroupUID: uid
+  }, uid);
+
+  private activatePlayerContext = (e: React.MouseEvent, states: Partial<ILobbyState>, uid: string) => {
     e.stopPropagation();
 
     if (e.currentTarget) {
       const pos = e.currentTarget.getBoundingClientRect();
       this.setState({
-        activePlayerUID: uid,
+        playerUID: '',
+        groupUID: '',
+        enemyGroupUID: '',
+
+        ...states,
+
         userDialog: {
           uid,
           x: pos.left,
@@ -132,7 +153,7 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
    */
   public render() {
     const {status, playersOnline, playersGroup, playersEnemyGroup} = this.props;
-    const {userDialog, activePlayerUID} = this.state;
+    const {userDialog, playerUID, groupUID, enemyGroupUID} = this.state;
 
     const myUid = '1';
 
@@ -164,24 +185,28 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
 
             <div className={styles.PlayersOnline}>
               <PlayerList title="Players in lobby now"
-                          active={activePlayerUID}
-                          onClick={this.onUserClick}
-                          players={playersOnline}/>
+                          active={playerUID}
+                          players={playersOnline}
+                          onClick={this.onOnlinePlayerClick}
+              />
             </div>
 
             {playersGroup.length > 0 &&
             <div className={styles.PlayersGroup}>
               <PlayerList title="Your group"
-                          onClick={this.onUserClick}
+                          active={groupUID}
                           players={playersGroup}
+                          onClick={this.onGroupPlayerClick}
+
               />
             </div>}
 
             {playersEnemyGroup.length > 0 &&
             <div className={styles.PlayersGroup}>
               <PlayerList title="Your opponent group"
-                          onClick={this.onUserClick}
+                          active={enemyGroupUID}
                           players={playersEnemyGroup}
+                          onClick={this.onEnemyGroupPlayerClick}
               />
             </div>}
 

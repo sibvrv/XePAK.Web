@@ -36,16 +36,15 @@ export interface IPlayerListState {
 
 const Item = (
   {
-    uid,
     icon,
     title,
     active,
     status = PLAYER_STATUS.NONE,
     badge,
     onClick
-  }: IPlayerInfo & { onClick: (e: React.MouseEvent, uid: string) => void }) =>
-  <div className={active ? styles.Active : (status === PLAYER_STATUS.OFFLINE ? styles.Offline : styles.Item)}
-       onClick={(e) => onClick(e, uid)}>
+  }: IPlayerInfo & { onClick: (e: React.MouseEvent) => void }) =>
+  <div onClick={onClick}
+       className={active ? styles.Active : (status === PLAYER_STATUS.OFFLINE ? styles.Offline : styles.Item)}>
     {status === PLAYER_STATUS.NONE ?
       <div className={styles.Icon}>{icon}</div> :
       <div className={status === PLAYER_STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline}/>
@@ -92,7 +91,7 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
         <div className={styles.Section}>
           {players.map(player =>
             <Item key={`pl_${player.title}`}
-                  onClick={onClick}
+                  onClick={(e) => onClick(e, player.uid)}
                   active={player.uid === active}
                   {...player}
             />)}
