@@ -28,6 +28,12 @@ export interface ILobbyState {
 
 declare let sdNet: any;
 
+const resetUIDs: Partial<ILobbyState> = {
+  playerUID: '',
+  groupUID: '',
+  enemyGroupUID: '',
+}
+
 const Button = ({onClick, children, id}: { onClick: () => void, id?: string, children: any }) =>
   <div {...(id ? {id} : {})} className={styles.Button} onClick={onClick}>{children}</div>;
 
@@ -95,20 +101,24 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
 
     if (e.currentTarget) {
       const pos = e.currentTarget.getBoundingClientRect();
-      this.setState({
-        playerUID: '',
-        groupUID: '',
-        enemyGroupUID: '',
+      const userDialog = {
+        uid,
+        x: pos.left,
+        y: pos.top + pos.height,
+      };
 
-        ...states,
-
-        userDialog: {
-          uid,
-          x: pos.left,
-          y: pos.top + pos.height,
-        },
-      });
-      this.startTimer();
+      if (this.state.userDialog && this.state.userDialog.uid === uid) {
+        this.setState({userDialog});
+      } else {
+        this.setState({
+          ...resetUIDs,
+          ...states,
+          userDialog: false,
+        }, () => {
+          this.setState({userDialog});
+          this.startTimer();
+        });
+      }
     }
   };
 
