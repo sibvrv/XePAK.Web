@@ -5,7 +5,7 @@
 
 
 .Title {
-  font-size: 1vh;
+  font-size: calc(12px + 0.5vmin);
   font-weight: bold;
 
   background-color: var(--colors-bg--300);
