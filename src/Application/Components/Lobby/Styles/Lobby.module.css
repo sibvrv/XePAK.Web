@@ -83,7 +83,7 @@
   display: inline-block;
   color: #666;
   width: 100%;
-  margin-top: 1vh;
+  margin-top: 1vmin;
 
   background-color: var(--colors-bg--300);
   border: 1px solid #22405d;
