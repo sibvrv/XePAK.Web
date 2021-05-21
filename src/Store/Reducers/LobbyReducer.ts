@@ -1,5 +1,6 @@
 import {handleActions} from 'redux-actions';
 import {IPlayerInfo, PLAYER_STATUS} from '../../Application/Components/Lobby/Components/PlayerList/PlayerList';
+import {hex_md5} from "../../ThirdParty/md5";
 
 export enum LOBBY_ACTIONS {
   QUICK_REGISTER = 'QUICK_REGISTER',
@@ -60,6 +61,10 @@ const initialState: ILobbyReducerState = {
   pass: localStorage.getItem('pass'),
 };
 
+function Salty(pass: string) {
+  return hex_md5(pass + '**SDsv_-vva8923~-&?');
+}
+
 export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel>(
   {
     [LOBBY_ACTIONS.QUICK_REGISTER]: (state, action) => {
@@ -92,7 +97,7 @@ export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel
       return {
         ...state,
         loginKey: key,
-        passwordKey: key
+        passwordKey: hex_md5(Salty(state.pass || '') + key)
       };
     }
   },
