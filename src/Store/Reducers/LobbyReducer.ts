@@ -3,6 +3,7 @@ import {IPlayerInfo, PLAYER_STATUS} from '../../Application/Components/Lobby/Com
 
 export enum LOBBY_ACTIONS {
   QUICK_REGISTER = 'QUICK_REGISTER',
+  LOGIN_REQUEST_KEY = 'LOGIN_REQUEST_KEY',
 }
 
 /**
@@ -79,6 +80,21 @@ export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel
         pass: password,
       };
     },
+    [LOBBY_ACTIONS.LOGIN_REQUEST_KEY]: (state, action) => {
+      const {payload} = action;
+
+      var [status, key] = payload.response.split('|');
+      if (status !== 'done') {
+        // GotServerError(payload);
+        return state;
+      }
+
+      return {
+        ...state,
+        loginKey: key,
+        passwordKey: key
+      };
+    }
   },
   initialState,
 );

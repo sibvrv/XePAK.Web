@@ -110,6 +110,16 @@ export class Lobby extends React.Component<ILobbyProps, ILobbyState> {
           }
         },
       });
+    } else {
+      store.dispatch({
+        type: 'FETCH',
+        payload: {
+          action: LOBBY_ACTIONS.LOGIN_REQUEST_KEY,
+          params: {
+            request: 'login_request_key',
+          }
+        },
+      });
     }
   }
 
