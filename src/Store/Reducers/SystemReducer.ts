@@ -1,11 +1,9 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from "redux-actions";
 
 /**
  * SystemReducer Model Interface
  */
-export interface ISystemReducerModel {
-
-}
+export interface ISystemReducerModel {}
 
 /**
  * SystemReducer State Interface
@@ -18,13 +16,13 @@ export interface ISystemReducerState {
  * SystemReducer Initial State Interface
  */
 const initialState: ISystemReducerState = {
-  status: ''
+  status: "",
 };
 
 /**
  * System Reducer
  */
-export const SystemReducer = handleActions<ISystemReducerState, ISystemReducerModel>(
-  {},
-  initialState,
-);
+export const SystemReducer = handleActions<
+  ISystemReducerState,
+  ISystemReducerModel
+>({}, initialState);

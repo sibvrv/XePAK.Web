@@ -1,11 +1,9 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from "redux-actions";
 
 /**
  * PlayerStats Model Interface
  */
-export interface IPlayerStatsModel {
-
-}
+export interface IPlayerStatsModel {}
 
 /**
  * PlayerStats State Interface
@@ -18,10 +16,13 @@ export interface IPlayerStatsState {
   losses: number;
   kills: number;
   deaths: number;
-  averageLifetime: number
+  averageLifetime: number;
   KDR: number; // Kill Death Ratio
 
-  weapon: Record<string, { accuracy: number; hits: number; kills: number; damage: number; }>;
+  weapon: Record<
+    string,
+    { accuracy: number; hits: number; kills: number; damage: number }
+  >;
 }
 
 /**
@@ -40,8 +41,7 @@ const initialState: IPlayerStatsState = {
   weapon: {},
 };
 
-
-export const PlayerStatsReducer = handleActions<IPlayerStatsState, IPlayerStatsModel>(
-  {},
-  initialState
-);
+export const PlayerStatsReducer = handleActions<
+  IPlayerStatsState,
+  IPlayerStatsModel
+>({}, initialState);

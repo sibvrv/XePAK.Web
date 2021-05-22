@@ -11,7 +11,7 @@
  * Configurable variables. You may need to tweak these to be compatible with
  * the server-side, but the defaults work in most cases.
  */
-let hexcase = 0;   /* hex output format. 0 - lowercase; 1 - uppercase */
+const hexcase = 0; /* hex output format. 0 - lowercase; 1 - uppercase */
 
 /*
  * These are the functions you'll usually want to call
@@ -32,13 +32,12 @@ function rstr_md5(s: string) {
  * Convert a raw string to a hex string
  */
 function rstr2hex(input: string) {
-  let hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+  const hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
   let output = "";
   let x;
   for (let i = 0; i < input.length; i++) {
     x = input.charCodeAt(i);
-    output += hex_tab.charAt((x >>> 4) & 0x0F)
-      + hex_tab.charAt(x & 0x0F);
+    output += hex_tab.charAt((x >>> 4) & 0x0f) + hex_tab.charAt(x & 0x0f);
   }
   return output;
 }
@@ -56,26 +55,31 @@ function str2rstr_utf8(input: string) {
     /* Decode utf-16 surrogate pairs */
     x = input.charCodeAt(i);
     y = i + 1 < input.length ? input.charCodeAt(i + 1) : 0;
-    if (0xD800 <= x && x <= 0xDBFF && 0xDC00 <= y && y <= 0xDFFF) {
-      x = 0x10000 + ((x & 0x03FF) << 10) + (y & 0x03FF);
+    if (0xd800 <= x && x <= 0xdbff && 0xdc00 <= y && y <= 0xdfff) {
+      x = 0x10000 + ((x & 0x03ff) << 10) + (y & 0x03ff);
       i++;
     }
 
     /* Encode output as utf-8 */
-    if (x <= 0x7F)
-      output += String.fromCharCode(x);
-    else if (x <= 0x7FF)
-      output += String.fromCharCode(0xC0 | ((x >>> 6) & 0x1F),
-        0x80 | (x & 0x3F));
-    else if (x <= 0xFFFF)
-      output += String.fromCharCode(0xE0 | ((x >>> 12) & 0x0F),
-        0x80 | ((x >>> 6) & 0x3F),
-        0x80 | (x & 0x3F));
-    else if (x <= 0x1FFFFF)
-      output += String.fromCharCode(0xF0 | ((x >>> 18) & 0x07),
-        0x80 | ((x >>> 12) & 0x3F),
-        0x80 | ((x >>> 6) & 0x3F),
-        0x80 | (x & 0x3F));
+    if (x <= 0x7f) output += String.fromCharCode(x);
+    else if (x <= 0x7ff)
+      output += String.fromCharCode(
+        0xc0 | ((x >>> 6) & 0x1f),
+        0x80 | (x & 0x3f)
+      );
+    else if (x <= 0xffff)
+      output += String.fromCharCode(
+        0xe0 | ((x >>> 12) & 0x0f),
+        0x80 | ((x >>> 6) & 0x3f),
+        0x80 | (x & 0x3f)
+      );
+    else if (x <= 0x1fffff)
+      output += String.fromCharCode(
+        0xf0 | ((x >>> 18) & 0x07),
+        0x80 | ((x >>> 12) & 0x3f),
+        0x80 | ((x >>> 6) & 0x3f),
+        0x80 | (x & 0x3f)
+      );
   }
   return output;
 }
@@ -85,11 +89,10 @@ function str2rstr_utf8(input: string) {
  * Characters >255 have their high-byte silently ignored.
  */
 function rstr2binl(input: string) {
-  let output = Array(input.length >> 2);
-  for (let i = 0; i < output.length; i++)
-    output[i] = 0;
+  const output = Array(input.length >> 2);
+  for (let i = 0; i < output.length; i++) output[i] = 0;
   for (let i = 0; i < input.length * 8; i += 8)
-    output[i >> 5] |= (input.charCodeAt(i / 8) & 0xFF) << (i % 32);
+    output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << i % 32;
   return output;
 }
 
@@ -99,7 +102,7 @@ function rstr2binl(input: string) {
 function binl2rstr(input: number[]) {
   let output = "";
   for (let i = 0; i < input.length * 32; i += 8)
-    output += String.fromCharCode((input[i >> 5] >>> (i % 32)) & 0xFF);
+    output += String.fromCharCode((input[i >> 5] >>> i % 32) & 0xff);
   return output;
 }
 
@@ -108,7 +111,7 @@ function binl2rstr(input: number[]) {
  */
 function binl_md5(x: number[], len: number) {
   /* append padding */
-  x[len >> 5] |= 0x80 << ((len) % 32);
+  x[len >> 5] |= 0x80 << len % 32;
   x[(((len + 64) >>> 9) << 4) + 14] = len;
 
   let a = 1732584193;
@@ -117,10 +120,10 @@ function binl_md5(x: number[], len: number) {
   let d = 271733878;
 
   for (let i = 0; i < x.length; i += 16) {
-    let olda = a;
-    let oldb = b;
-    let oldc = c;
-    let oldd = d;
+    const olda = a;
+    const oldb = b;
+    const oldc = c;
+    const oldd = d;
 
     a = md5_ff(a, b, c, d, x[i], 7, -680876936);
     d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
@@ -201,24 +204,63 @@ function binl_md5(x: number[], len: number) {
 /*
  * These functions implement the four basic operations the algorithm uses.
  */
-function md5_cmn(q: number, a: number, b: number, x: number, s: number, t: number) {
+function md5_cmn(
+  q: number,
+  a: number,
+  b: number,
+  x: number,
+  s: number,
+  t: number
+) {
   return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
 }
 
-function md5_ff(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
-  return md5_cmn((b & c) | ((~b) & d), a, b, x, s, t);
+function md5_ff(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number
+) {
+  return md5_cmn((b & c) | (~b & d), a, b, x, s, t);
 }
 
-function md5_gg(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
-  return md5_cmn((b & d) | (c & (~d)), a, b, x, s, t);
+function md5_gg(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number
+) {
+  return md5_cmn((b & d) | (c & ~d), a, b, x, s, t);
 }
 
-function md5_hh(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+function md5_hh(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number
+) {
   return md5_cmn(b ^ c ^ d, a, b, x, s, t);
 }
 
-function md5_ii(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
-  return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
+function md5_ii(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number
+) {
+  return md5_cmn(c ^ (b | ~d), a, b, x, s, t);
 }
 
 /*
@@ -226,9 +268,9 @@ function md5_ii(a: number, b: number, c: number, d: number, x: number, s: number
  * to work around bugs in some JS interpreters.
  */
 function safe_add(x: number, y: number) {
-  let lsw = (x & 0xFFFF) + (y & 0xFFFF);
-  let msw = (x >> 16) + (y >> 16) + (lsw >> 16);
-  return (msw << 16) | (lsw & 0xFFFF);
+  const lsw = (x & 0xffff) + (y & 0xffff);
+  const msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+  return (msw << 16) | (lsw & 0xffff);
 }
 
 /*

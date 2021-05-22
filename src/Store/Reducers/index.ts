@@ -1,8 +1,9 @@
-import {combineReducers} from 'redux';
-import {PlayerStatsReducer} from './PlayerStats';
-import {LobbyReducer} from './LobbyReducer';
-import {SystemReducer} from './SystemReducer';
-import {AuthReducer} from './AuthReducer';
+import { combineReducers } from "redux";
+
+import { AuthReducer } from "./AuthReducer";
+import { LobbyReducer } from "./LobbyReducer";
+import { PlayerStatsReducer } from "./PlayerStats";
+import { SystemReducer } from "./SystemReducer";
 
 const rootReducers = {
   auth: AuthReducer,

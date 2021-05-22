@@ -1,1 +1,1 @@
-export * from './Public/MainMenu';
+export * from "./Public/MainMenu";
