@@ -1,11 +1,13 @@
+import {storiesOf} from '@storybook/react';
 import React from 'react';
+import {MemoryRouter} from 'react-router';
+
+import {ROUTE} from '../../Constants/Routing';
+import App from '../App';
 import {About} from '../Pages/About';
 import {Home} from '../Pages/Home';
 import {Play} from '../Pages/Play';
-import {ROUTE} from '../../Constants/Routing';
-import {storiesOf} from '@storybook/react';
-import {MemoryRouter} from 'react-router';
-import App from '../App';
+
 
 export const _Home = () => <Home/>;
 export const _About = () => <About/>;
@@ -35,7 +37,6 @@ Object.keys(stories).forEach((storyName) => {
   const story = storiesOf(storyName, module);
 
   stories[storyName].forEach((item) => {
-    const props = item.params ?? {};
     story.add(item.name, () => (
       <MemoryRouter initialEntries={[{pathname: item.route}]} initialIndex={0}>
         <App/>

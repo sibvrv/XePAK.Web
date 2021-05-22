@@ -1,16 +1,17 @@
 import * as React from 'react';
-import styles from '../Styles/Lobby.module.css';
-import {Header} from '../../Header';
-import {MainMenu} from '../../MainMenu';
-import {Footer} from '../../Footer/Footer';
-import {PlayerList} from '../Components/PlayerList/PlayerList';
-import {ContextMenu} from '../Components/ContextMenu/ContextMenu';
-import {ContextMenuItem} from '../Components/ContextMenu/ContextMenuItem';
-import store from '../../../../Store/Store';
+
 import {passwordGenerator} from '../../../../Framework/Password/PasswordGenerator';
 import {AUTH_ACTIONS, IAuthReducerState} from '../../../../Store/Reducers/AuthReducer';
-import {ISystemReducerState} from '../../../../Store/Reducers/SystemReducer';
 import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
+import {ISystemReducerState} from '../../../../Store/Reducers/SystemReducer';
+import store from '../../../../Store/Store';
+import {Footer} from '../../Footer/Footer';
+import {Header} from '../../Header';
+import {MainMenu} from '../../MainMenu';
+import {ContextMenu} from '../Components/ContextMenu/ContextMenu';
+import {ContextMenuItem} from '../Components/ContextMenu/ContextMenuItem';
+import {PlayerList} from '../Components/PlayerList/PlayerList';
+import styles from '../Styles/Lobby.module.css';
 
 /**
  * Lobby Props Interface

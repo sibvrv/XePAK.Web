@@ -12,7 +12,7 @@
     "build-storybook": "build-storybook -s public",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
-    "fix:lint": "eslint src --ext .ts --fix"
+    "fix:lint": "eslint src --ext .ts,.tsx --fix"
   },
   "repository": {
     "type": "git",

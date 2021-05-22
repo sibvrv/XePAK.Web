@@ -1,7 +1,9 @@
 import * as React from 'react';
-import styles from './Styles/PlayerList.module.css';
-import {Loading} from "../../../Common/Loading/Loading";
+
 import {noop} from "../../../../../Framework/Common/noop";
+import {Loading} from "../../../Common/Loading/Loading";
+
+import styles from './Styles/PlayerList.module.css';
 
 export enum PLAYER_STATUS {
   NONE,

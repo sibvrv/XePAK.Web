@@ -1,6 +1,7 @@
 import * as React from 'react';
-import styles from '../Styles/MiniProfile.module.css';
+
 import {IPlayerStatsState} from "../../../../Store/Reducers/PlayerStats";
+import styles from '../Styles/MiniProfile.module.css';
 
 /**
  * MiniProfile Props Interface

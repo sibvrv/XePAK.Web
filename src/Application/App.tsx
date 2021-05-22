@@ -1,10 +1,12 @@
 import React, {Suspense} from 'react';
 import './Styles/App.css';
-import {Home} from './Pages/Home';
-import {ROUTE} from '../Constants/Routing';
 import {Switch} from 'react-router';
 import {Route} from 'react-router-dom';
+
+import {ROUTE} from '../Constants/Routing';
+
 import {About} from './Pages/About';
+import {Home} from './Pages/Home';
 import {Play} from './Pages/Play';
 import {Ranking} from './Pages/Ranking';
 import {Season} from './Pages/Season';

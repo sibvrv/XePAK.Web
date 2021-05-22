@@ -1,10 +1,11 @@
 import * as React from 'react';
-import logoPrimary from '../../../../Assets/Logo/XePAK.svg';
-import logoSecondary from '../../../../Assets/Logo/XEPAK_secondary.svg';
-import logoDefault from '../../../../Assets/Logo/XePAK_default.svg';
-import styles from '../Styles/Header.module.css';
-import {ROUTE} from '../../../../Constants/Routing';
 import {Link} from 'react-router-dom';
+
+import logoSecondary from '../../../../Assets/Logo/XEPAK_secondary.svg';
+import logoPrimary from '../../../../Assets/Logo/XePAK.svg';
+import logoDefault from '../../../../Assets/Logo/XePAK_default.svg';
+import {ROUTE} from '../../../../Constants/Routing';
+import styles from '../Styles/Header.module.css';
 
 /**
  * Header Props Interface

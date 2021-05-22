@@ -55,6 +55,7 @@ export const FetchMiddleware: Middleware = (store) => (next) => (action) => {
   if (action.type === "FETCH") {
     requestStack.push(action.payload);
     startFakeWorker(store);
+    return;
   }
   return next(action);
 };

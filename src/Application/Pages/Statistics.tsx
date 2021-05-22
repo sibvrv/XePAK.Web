@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {BaseLayout} from '../Layouts/BaseLayout';
+
 import CareerStatistics from "../Components/Statistics/CareerStatistics";
+import {BaseLayout} from '../Layouts/BaseLayout';
 
 /**
  * Statistics Props Interface

@@ -1,8 +1,10 @@
 import * as React from 'react';
+
+import {Footer} from '../Components/Footer/Footer';
 import {Header} from '../Components/Header';
 import {MainMenu} from '../Components/MainMenu';
+
 import styles from './Styles/BaseLayout.module.css';
-import {Footer} from '../Components/Footer/Footer';
 
 /**
  * BaseLayout Props Interface

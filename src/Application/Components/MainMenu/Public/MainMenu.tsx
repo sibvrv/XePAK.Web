@@ -1,7 +1,8 @@
 import * as React from 'react';
-import styles from '../Styles/MainMenu.module.css';
 import {Link} from 'react-router-dom';
+
 import {ROUTE} from '../../../../Constants/Routing';
+import styles from '../Styles/MainMenu.module.css';
 
 /**
  * MainMenu Props Interface

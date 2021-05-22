@@ -1,8 +1,10 @@
 import * as React from 'react';
-import MiniProfile from '../Components/MiniProfile';
-import {ROUTE} from '../../Constants/Routing';
-import {BaseLayout} from '../Layouts/BaseLayout';
 import {Link} from 'react-router-dom';
+
+import {ROUTE} from '../../Constants/Routing';
+import MiniProfile from '../Components/MiniProfile';
+import {BaseLayout} from '../Layouts/BaseLayout';
+
 
 /**
  * Home Props Interface
