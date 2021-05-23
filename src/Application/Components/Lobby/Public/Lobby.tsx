@@ -1,23 +1,27 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {passwordGenerator} from '../../../../Framework/Password/PasswordGenerator';
-import {AUTH_ACTIONS, IAuthReducerState} from '../../../../Store/Reducers/AuthReducer';
-import {ILobbyReducerState} from '../../../../Store/Reducers/LobbyReducer';
-import {ISystemReducerState} from '../../../../Store/Reducers/SystemReducer';
-import store from '../../../../Store/Store';
-import {Footer} from '../../Footer/Footer';
-import {Header} from '../../Header';
-import {MainMenu} from '../../MainMenu';
-import {ContextMenu} from '../Components/ContextMenu/ContextMenu';
-import {ContextMenuItem} from '../Components/ContextMenu/ContextMenuItem';
-import {PlayerList} from '../Components/PlayerList/PlayerList';
-import styles from '../Styles/Lobby.module.css';
+import { IAuthReducerState } from "../../../../Store/Reducers/AuthReducer";
+import {
+  ILobbyReducerState,
+  LOBBY_ACTION,
+} from "../../../../Store/Reducers/LobbyReducer";
+import { ISystemReducerState } from "../../../../Store/Reducers/SystemReducer";
+import store from "../../../../Store/Store";
+import { Footer } from "../../Footer/Footer";
+import { Header } from "../../Header";
+import { MainMenu } from "../../MainMenu";
+import { ContextMenu } from "../Components/ContextMenu/ContextMenu";
+import { ContextMenuItem } from "../Components/ContextMenu/ContextMenuItem";
+import { PlayerList } from "../Components/PlayerList/PlayerList";
+import styles from "../Styles/Lobby.module.css";
 
 /**
  * Lobby Props Interface
  */
-export interface ILobbyProps extends ILobbyReducerState, Pick<ISystemReducerState, 'status'>, IAuthReducerState {
-}
+export interface ILobbyProps
+  extends ILobbyReducerState,
+    Pick<ISystemReducerState, "status">,
+    IAuthReducerState {}
 
 /**
  * Lobby State Interface
@@ -32,13 +36,24 @@ export interface ILobbyState {
 declare let sdNet: any;
 
 const resetUIDs: Partial<ILobbyState> = {
-  playerUID: '',
-  groupUID: '',
-  enemyGroupUID: '',
+  playerUID: "",
+  groupUID: "",
+  enemyGroupUID: "",
 };
 
-const Button = ({onClick, children, id}: { onClick: () => void, id?: string, children: any }) =>
-  <div {...(id ? {id} : {})} className={styles.Button} onClick={onClick}>{children}</div>;
+const Button = ({
+  onClick,
+  children,
+  id,
+}: {
+  onClick: () => void;
+  id?: string;
+  children: any;
+}) => (
+  <div {...(id ? { id } : {})} className={styles.Button} onClick={onClick}>
+    {children}
+  </div>
+);
 
 /**
  * Lobby
@@ -50,6 +65,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
    * Variables
    */
   hideDialogTimer = 0;
+  pingTimer = 0;
 
   /**
    * Default Props for Lobby Component
@@ -65,9 +81,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     super(props, context);
     this.state = {
       userDialog: false,
-      playerUID: '',
-      groupUID: '',
-      enemyGroupUID: '',
+      playerUID: "",
+      groupUID: "",
+      enemyGroupUID: "",
     };
   }
 
@@ -87,19 +103,38 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     }, 5000);
   }
 
-  private onOnlinePlayerClick = (e: React.MouseEvent, uid: string) => this.activatePlayerContext(e, {
-    playerUID: uid,
-  }, uid);
+  private onOnlinePlayerClick = (e: React.MouseEvent, uid: string) =>
+    this.activatePlayerContext(
+      e,
+      {
+        playerUID: uid,
+      },
+      uid
+    );
 
-  private onGroupPlayerClick = (e: React.MouseEvent, uid: string) => this.activatePlayerContext(e, {
-    groupUID: uid,
-  }, uid);
+  private onGroupPlayerClick = (e: React.MouseEvent, uid: string) =>
+    this.activatePlayerContext(
+      e,
+      {
+        groupUID: uid,
+      },
+      uid
+    );
 
-  private onEnemyGroupPlayerClick = (e: React.MouseEvent, uid: string) => this.activatePlayerContext(e, {
-    enemyGroupUID: uid,
-  }, uid);
+  private onEnemyGroupPlayerClick = (e: React.MouseEvent, uid: string) =>
+    this.activatePlayerContext(
+      e,
+      {
+        enemyGroupUID: uid,
+      },
+      uid
+    );
 
-  private activatePlayerContext = (e: React.MouseEvent, states: Partial<ILobbyState>, uid: string) => {
+  private activatePlayerContext = (
+    e: React.MouseEvent,
+    states: Partial<ILobbyState>,
+    uid: string
+  ) => {
     e.stopPropagation();
 
     if (e.currentTarget) {
@@ -111,16 +146,19 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
       };
 
       if (this.state.userDialog && this.state.userDialog.uid === uid) {
-        this.setState({userDialog});
+        this.setState({ userDialog });
       } else {
-        this.setState({
-          ...resetUIDs,
-          ...states,
-          userDialog: false,
-        }, () => {
-          this.setState({userDialog});
-          this.startTimer();
-        });
+        this.setState(
+          {
+            ...resetUIDs,
+            ...states,
+            userDialog: false,
+          },
+          () => {
+            this.setState({ userDialog });
+            this.startTimer();
+          }
+        );
       }
     }
   };
@@ -132,124 +170,197 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
   };
 
   componentDidMount() {
-    const {uid, pass} = this.props;
-    if (!uid || !pass) {
+    store.dispatch({ type: "AUTH", payload: {} });
+    this.pingTimer = window.setInterval(() => {
+      const { uid, pass, loginKey, passwordKey } = store.getState().auth;
+      if (!uid || !pass || !passwordKey) {
+        return;
+      }
+
       store.dispatch({
-        type: 'FETCH',
+        type: "FETCH",
         payload: {
-          action: AUTH_ACTIONS.QUICK_REGISTER,
           params: {
-            request: 'quick_register',
-            pass: passwordGenerator(),
+            request: "quick_play_ping",
+            uid,
+            key: loginKey,
+            pass_plus_key: passwordKey,
+            peer_id: null,
           },
         },
       });
-    } else {
+
       store.dispatch({
-        type: 'FETCH',
+        type: "FETCH",
         payload: {
-          action: AUTH_ACTIONS.LOGIN_REQUEST_KEY,
+          action: LOBBY_ACTION.PLAYERS_ONLINE,
           params: {
-            request: 'login_request_key',
+            request: "get_online_players",
+            uid,
+            key: loginKey,
+            pass_plus_key: passwordKey,
           },
         },
       });
-    }
+
+      store.dispatch({
+        type: "FETCH",
+        payload: {
+          action: LOBBY_ACTION.PLAYERS_GROUP,
+          params: {
+            request: "get_group_players",
+            uid,
+            key: loginKey,
+            pass_plus_key: passwordKey,
+          },
+        },
+      });
+
+      store.dispatch({
+        type: "FETCH",
+        payload: {
+          action: LOBBY_ACTION.PLAYERS_ENEMY_GROUP,
+          params: {
+            request: "get_enemy_group_players",
+            uid,
+            key: loginKey,
+            pass_plus_key: passwordKey,
+          },
+        },
+      });
+    }, 1000);
   }
 
   public componentWillUnmount() {
     this.clearTimer();
+    window.clearInterval(this.pingTimer);
   }
 
   /**
    * Render Lobby Component
    */
   public render() {
-    const {status, playersOnline, playersGroup, playersEnemyGroup} = this.props;
-    const {userDialog, playerUID, groupUID, enemyGroupUID} = this.state;
+    const { status, playersOnline, playersGroup, playersEnemyGroup } =
+      this.props;
+    const { userDialog, playerUID, groupUID, enemyGroupUID } = this.state;
 
-    const myUid = '1';
+    const myUid = "1";
 
     return (
-      <div id="lobby_ui" className={styles.Container} onClick={this.hideDialogs}>
+      <div
+        id="lobby_ui"
+        className={styles.Container}
+        onClick={this.hideDialogs}
+      >
         <div className={styles.ContainerInner}>
           <Header variation="secondary">
-            <MainMenu variation="secondary"/>
+            <MainMenu variation="secondary" />
           </Header>
 
           <div className={styles.GameModeActions}>
-            <Button onClick={() => sdNet.OfflineTraining(2)}>Play solo vs AI</Button>
-            <Button onClick={() => sdNet.OfflineTraining(1)}>Play with AI vs AI</Button>
+            <Button onClick={() => sdNet.OfflineTraining(2)}>
+              Play solo vs AI
+            </Button>
+            <Button onClick={() => sdNet.OfflineTraining(1)}>
+              Play with AI vs AI
+            </Button>
             <Button onClick={() => sdNet.OfflineTraining(0)}>Play alone</Button>
-            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_FFA)} id="play_ffa_btn">
-              Quick Play FFA <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
+            <Button
+              onClick={() => sdNet.QuickPlay(sdNet.MODE_FFA)}
+              id="play_ffa_btn"
+            >
+              Quick Play FFA{" "}
+              <span className={styles.ButtonHighlight}>
+                (2+ players, multiplayer)
+              </span>
             </Button>
-            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)}
-                    id="play_tvt_btn">
-              Quick Play TvT <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
+            <Button
+              onClick={() => sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)}
+              id="play_tvt_btn"
+            >
+              Quick Play TvT{" "}
+              <span className={styles.ButtonHighlight}>
+                (2+ players, multiplayer)
+              </span>
             </Button>
-            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)} id="play_as1_btn">
-              Quick Play As One <span className={styles.ButtonHighlight}>(4+ players, multiplayer)</span>
+            <Button
+              onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)}
+              id="play_as1_btn"
+            >
+              Quick Play As One{" "}
+              <span className={styles.ButtonHighlight}>
+                (4+ players, multiplayer)
+              </span>
             </Button>
-            <div id='status_field' className={styles.StatusField}>{status}</div>
+            <div id="status_field" className={styles.StatusField}>
+              {status}
+            </div>
           </div>
 
           <div className={styles.Content}>
-
             <div className={styles.PlayersOnline}>
-              <PlayerList title="Players in lobby now"
-                          active={playerUID}
-                          players={playersOnline}
-                          onClick={this.onOnlinePlayerClick}
+              <PlayerList
+                title="Players in lobby now"
+                active={playerUID}
+                players={playersOnline}
+                onClick={this.onOnlinePlayerClick}
               />
             </div>
 
-            {playersGroup.length > 0 &&
-            <div className={styles.PlayersGroup}>
-              <PlayerList title="Your group"
-                          active={groupUID}
-                          players={playersGroup}
-                          onClick={this.onGroupPlayerClick}
+            {playersGroup.length > 0 && (
+              <div className={styles.PlayersGroup}>
+                <PlayerList
+                  title="Your group"
+                  active={groupUID}
+                  players={playersGroup}
+                  onClick={this.onGroupPlayerClick}
+                />
+              </div>
+            )}
 
-              />
-            </div>}
-
-            {playersEnemyGroup.length > 0 &&
-            <div className={styles.PlayersGroup}>
-              <PlayerList title="Your opponent group"
-                          active={enemyGroupUID}
-                          players={playersEnemyGroup}
-                          onClick={this.onEnemyGroupPlayerClick}
-              />
-            </div>}
-
+            {playersEnemyGroup.length > 0 && (
+              <div className={styles.PlayersGroup}>
+                <PlayerList
+                  title="Your opponent group"
+                  active={enemyGroupUID}
+                  players={playersEnemyGroup}
+                  onClick={this.onEnemyGroupPlayerClick}
+                />
+              </div>
+            )}
           </div>
 
-          <Footer/>
+          <Footer />
         </div>
 
+        {userDialog && (
+          <div
+            className={styles.FloatingUserInfo}
+            onClick={(e) => e.stopPropagation()}
+            onMouseEnter={() => this.clearTimer()}
+            onMouseLeave={() => this.startTimer()}
+            style={{ left: userDialog.x, top: userDialog.y }}
+          >
+            <ContextMenu>
+              {userDialog.uid !== myUid && (
+                <>
+                  <ContextMenuItem>Invite to my teammate group</ContextMenuItem>
+                  <ContextMenuItem>
+                    Invite as opponent group leader
+                  </ContextMenuItem>
+                </>
+              )}
 
-        {userDialog && <div className={styles.FloatingUserInfo}
-                            onClick={(e) => e.stopPropagation()}
-                            onMouseEnter={() => this.clearTimer()}
-                            onMouseLeave={() => this.startTimer()}
-                            style={{left: userDialog.x, top: userDialog.y}}>
-          <ContextMenu>
-            {userDialog.uid !== myUid &&
-            <>
-              <ContextMenuItem>Invite to my teammate group</ContextMenuItem>
-              <ContextMenuItem>Invite as opponent group leader</ContextMenuItem>
-            </>}
-
-            {userDialog.uid === myUid &&
-            <>
-              <ContextMenuItem>Reset my teammate group</ContextMenuItem>
-              <ContextMenuItem>Reset opponent group</ContextMenuItem>
-            </>}
-          </ContextMenu>
-        </div>}
+              {userDialog.uid === myUid && (
+                <>
+                  <ContextMenuItem>Reset my teammate group</ContextMenuItem>
+                  <ContextMenuItem>Reset opponent group</ContextMenuItem>
+                </>
+              )}
+            </ContextMenu>
+          </div>
+        )}
       </div>
     );
   }
-
 }

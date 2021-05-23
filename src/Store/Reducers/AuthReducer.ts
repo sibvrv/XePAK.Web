@@ -6,7 +6,8 @@ const PASSWORD_SALT = "**SDsv_-vva8923~-&?";
 
 export enum AUTH_ACTIONS {
   QUICK_REGISTER = "QUICK_REGISTER",
-  LOGIN_REQUEST_KEY = "LOGIN_REQUEST_KEY",
+  LOGIN_KEY = "LOGIN_KEY",
+  LOGOUT = "LOGOUT",
 }
 
 /**
@@ -23,6 +24,8 @@ export interface IAuthReducerModel {
 export interface IAuthReducerState {
   uid: string | null;
   pass: string | null;
+  loginKey: string | null;
+  passwordKey: string | null;
 }
 
 /**
@@ -31,6 +34,8 @@ export interface IAuthReducerState {
 const initialState: IAuthReducerState = {
   uid: localStorage.getItem("uid"),
   pass: localStorage.getItem("pass"),
+  loginKey: null,
+  passwordKey: null,
 };
 
 function Salty(pass: string) {
@@ -42,6 +47,11 @@ function Salty(pass: string) {
  */
 export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
   {
+    [AUTH_ACTIONS.LOGOUT]: (state) => {
+      localStorage.removeItem("uid");
+      localStorage.removeItem("pass");
+      return { ...state, uid: "", pass: "" };
+    },
     [AUTH_ACTIONS.QUICK_REGISTER]: (state, action) => {
       const { payload } = action;
 
@@ -50,6 +60,7 @@ export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
         // GotServerError(payload);
         return state;
       }
+
       const password = payload.params?.pass ?? "";
       localStorage.setItem("uid", uid);
       localStorage.setItem("pass", password);
@@ -60,7 +71,7 @@ export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
         pass: password,
       };
     },
-    [AUTH_ACTIONS.LOGIN_REQUEST_KEY]: (state, action) => {
+    [AUTH_ACTIONS.LOGIN_KEY]: (state, action) => {
       const { payload } = action;
 
       const [status, key] = payload.response.split("|");

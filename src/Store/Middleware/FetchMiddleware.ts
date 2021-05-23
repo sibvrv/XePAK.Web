@@ -31,20 +31,27 @@ function startFakeWorker(store: MiddlewareAPI) {
         body: formData,
       })
         .then((response) => response.text())
-        .then((response) =>
-          store.dispatch({
-            type: request.action,
-            payload: {
-              response,
-              params: request.params,
-            },
-          })
-        )
+        .then((response) => {
+          if (request.action) {
+            store.dispatch({
+              type: request.action,
+              payload: {
+                ...request,
+                response,
+              },
+            });
+          }
+        })
         .catch((error) => {
-          store.dispatch({
-            type: request.action,
-            payload: `error|${JSON.stringify(error)}`,
-          });
+          if (request.action) {
+            store.dispatch({
+              type: request.action,
+              payload: {
+                ...request,
+                response: `error|${JSON.stringify(error)}`,
+              },
+            });
+          }
           console.error(error);
         });
     }

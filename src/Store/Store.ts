@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore } from "redux";
 
+import { AuthMiddleware } from "./Middleware/AuthMiddleware";
 import { FetchMiddleware } from "./Middleware/FetchMiddleware";
 import { LoggerMiddleware } from "./Middleware/LoggerMiddleware";
 import rootReducers from "./Reducers";
@@ -14,9 +15,10 @@ const getInitialState = () => {
 const store = createStore(
   rootReducers,
   getInitialState(),
-  applyMiddleware(LoggerMiddleware, FetchMiddleware)
+  applyMiddleware(AuthMiddleware, FetchMiddleware, LoggerMiddleware)
 );
 
+export type TStoreType = typeof store;
 export type TRootState = ReturnType<typeof store.getState>;
 export type TAppDispatch = typeof store.dispatch;
 
