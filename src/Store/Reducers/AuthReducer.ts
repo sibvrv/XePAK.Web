@@ -14,7 +14,7 @@ export enum AUTH_ACTIONS {
  * AuthReducer Model Interface
  */
 export interface IAuthReducerModel {
-  response: string;
+  response: { status: string; parts: string[] };
   params?: Record<string, string>;
 }
 
@@ -47,6 +47,27 @@ function Salty(pass: string) {
  */
 export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
   {
+    FETCH_ERROR: (state, action) => {
+      const { parts } = action.payload.response;
+      const msg = parts[0] || "";
+      if (msg === "Bad login." || msg === "Outdated hash.") {
+        return {
+          uid: null,
+          pass: null,
+          loginKey: null,
+          passwordKey: null,
+        };
+      }
+
+      if (msg === "Outdated key.") {
+        return {
+          ...state,
+          loginKey: null,
+          passwordKey: null,
+        };
+      }
+      return state;
+    },
     [AUTH_ACTIONS.LOGOUT]: (state) => {
       localStorage.removeItem("uid");
       localStorage.removeItem("pass");
@@ -54,12 +75,12 @@ export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
     },
     [AUTH_ACTIONS.QUICK_REGISTER]: (state, action) => {
       const { payload } = action;
+      const { parts, status } = payload.response;
 
-      const [status, uid] = payload.response.split("|");
       if (status !== "done") {
-        // GotServerError(payload);
         return state;
       }
+      const [uid] = parts;
 
       const password = payload.params?.pass ?? "";
       localStorage.setItem("uid", uid);
@@ -73,12 +94,12 @@ export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
     },
     [AUTH_ACTIONS.LOGIN_KEY]: (state, action) => {
       const { payload } = action;
+      const { parts, status } = payload.response;
 
-      const [status, key] = payload.response.split("|");
       if (status !== "done") {
-        // GotServerError(payload);
         return state;
       }
+      const [key] = parts;
 
       return {
         ...state,

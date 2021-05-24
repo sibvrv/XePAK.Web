@@ -16,7 +16,7 @@ export enum LOBBY_ACTION {
  * LobbyReducer Model Interface
  */
 export interface ILobbyReducerModel {
-  response: string;
+  response: { status: string; parts: string[] };
   params: any;
 }
 
@@ -44,14 +44,14 @@ export const LobbyReducer = handleActions<
 >(
   {
     [LOBBY_ACTION.PLAYERS_ONLINE]: (state, action) => {
-      const parts = action.payload.response.split("|");
-      if (parts[0] !== "done") {
+      const { parts, status } = action.payload.response;
+      if (status !== "done") {
         return state;
       }
 
       return {
         ...state,
-        playersOnline: parts[1]
+        playersOnline: parts[0]
           .split(",")
           .filter(Boolean)
           .map((uid) => ({
@@ -63,14 +63,14 @@ export const LobbyReducer = handleActions<
       };
     },
     [LOBBY_ACTION.PLAYERS_GROUP]: (state, action) => {
-      const parts = action.payload.response.split("|");
-      if (parts[0] !== "done") {
+      const { parts, status } = action.payload.response;
+      if (status !== "done") {
         return state;
       }
 
       return {
         ...state,
-        playersGroup: parts[1]
+        playersGroup: parts[0]
           .split(",")
           .filter(Boolean)
           .map((uid) => ({
@@ -81,14 +81,14 @@ export const LobbyReducer = handleActions<
       };
     },
     [LOBBY_ACTION.PLAYERS_ENEMY_GROUP]: (state, action) => {
-      const parts = action.payload.response.split("|");
-      if (parts[0] !== "done") {
+      const { parts, status } = action.payload.response;
+      if (status !== "done") {
         return state;
       }
 
       return {
         ...state,
-        playersEnemyGroup: parts[1]
+        playersEnemyGroup: parts[0]
           .split(",")
           .filter(Boolean)
           .map((uid) => ({

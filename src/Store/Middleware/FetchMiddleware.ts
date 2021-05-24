@@ -8,8 +8,15 @@ const requestStack: {
 const serverAPI = `https://www.xepak.com/play/server.php`;
 let worker = false;
 
-// Fake Worker
+function toJSON(response: string) {
+  const [status, ...parts] = response.split("|");
+  return {
+    status,
+    parts,
+  };
+}
 
+// Fake Worker
 function startFakeWorker(store: MiddlewareAPI) {
   if (worker) {
     return;
@@ -31,8 +38,21 @@ function startFakeWorker(store: MiddlewareAPI) {
         body: formData,
       })
         .then((response) => response.text())
-        .then((response) => {
+        .then((responseString) => {
           if (request.action) {
+            const response = toJSON(responseString);
+
+            if (response.status !== "done") {
+              store.dispatch({
+                type: "FETCH_ERROR",
+                payload: {
+                  ...request,
+                  response,
+                },
+              });
+              return;
+            }
+
             store.dispatch({
               type: request.action,
               payload: {
@@ -48,7 +68,7 @@ function startFakeWorker(store: MiddlewareAPI) {
               type: request.action,
               payload: {
                 ...request,
-                response: `error|${JSON.stringify(error)}`,
+                response: toJSON(`error|${JSON.stringify(error)}`),
               },
             });
           }

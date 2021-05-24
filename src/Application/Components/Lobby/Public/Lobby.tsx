@@ -171,9 +171,13 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
 
   componentDidMount() {
     store.dispatch({ type: "AUTH", payload: {} });
+
+    let onlineSkip = -1;
+
     this.pingTimer = window.setInterval(() => {
       const { uid, pass, loginKey, passwordKey } = store.getState().auth;
       if (!uid || !pass || !passwordKey) {
+        store.dispatch({ type: "AUTH", payload: {} });
         return;
       }
 
@@ -189,6 +193,11 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
           },
         },
       });
+
+      onlineSkip = (onlineSkip + 1) % 3;
+      if (onlineSkip) {
+        return;
+      }
 
       store.dispatch({
         type: "FETCH",
