@@ -236,6 +236,33 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     window.clearInterval(this.pingTimer);
   }
 
+  private inviteToGroup = () => {
+    const { uid, pass, loginKey, passwordKey } = store.getState().auth;
+    const { userDialog } = this.state;
+    if (!userDialog) {
+      return;
+    }
+
+    if (!uid || !pass || !passwordKey) {
+      return;
+    }
+
+    store.dispatch({
+      type: "FETCH",
+      payload: {
+        action: LOBBY_ACTION.INVITE_TO_GROUP,
+        params: {
+          request: "invite_to_group",
+          uid,
+          key: loginKey,
+          pass_plus_key: passwordKey,
+          to_uid: userDialog.uid,
+          is_enemy_request: 0,
+        },
+      },
+    });
+  };
+
   /**
    * Render Lobby Component
    */
@@ -344,7 +371,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
             <ContextMenu>
               {userDialog.uid !== myUid && (
                 <>
-                  <ContextMenuItem>Invite to my teammate group</ContextMenuItem>
+                  <ContextMenuItem onClick={this.inviteToGroup}>
+                    Invite to my teammate group
+                  </ContextMenuItem>
                   <ContextMenuItem>
                     Invite as opponent group leader
                   </ContextMenuItem>

@@ -1,29 +1,36 @@
-import * as React from 'react';
+import * as React from "react";
 
-import styles from './Styles/ContextMenu.module.css';
+import { noop } from "../../../../../Framework/Common/noop";
+
+import styles from "./Styles/ContextMenu.module.css";
 
 /**
  * ContextMenuItem Props Interface
  */
 export interface IContextMenuItemProps {
+  onClick: (event: React.MouseEvent) => void;
 }
 
 /**
  * ContextMenuItem State Interface
  */
-export interface IContextMenuItemState {
-}
+export interface IContextMenuItemState {}
 
 /**
  * ContextMenuItem
  * @class ContextMenuItem
  * @extends Component
  */
-export class ContextMenuItem extends React.Component<IContextMenuItemProps, IContextMenuItemState> {
+export class ContextMenuItem extends React.Component<
+  IContextMenuItemProps,
+  IContextMenuItemState
+> {
   /**
    * Default Props for ContextMenuItem Component
    */
-  public static defaultProps: Partial<IContextMenuItemProps> = {};
+  public static defaultProps: Partial<IContextMenuItemProps> = {
+    onClick: noop,
+  };
 
   /**
    * ContextMenuItem Component Constructor
@@ -39,11 +46,11 @@ export class ContextMenuItem extends React.Component<IContextMenuItemProps, ICon
    * Render ContextMenuItem Component
    */
   public render() {
-    const {children} = this.props;
+    const { children, onClick } = this.props;
     return (
-      <div className={styles.Item}>
+      <div className={styles.Item} onClick={onClick}>
         {children}
       </div>
-    )
+    );
   }
 }

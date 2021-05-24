@@ -9,6 +9,7 @@ export enum LOBBY_ACTION {
   PLAYERS_ONLINE = "PLAYERS_ONLINE",
   PLAYERS_GROUP = "PLAYERS_GROUP",
   PLAYERS_ENEMY_GROUP = "PLAYERS_ENEMY_GROUP",
+  INVITE_TO_GROUP = "INVITE_TO_GROUP",
 }
 
 /**
@@ -16,6 +17,7 @@ export enum LOBBY_ACTION {
  */
 export interface ILobbyReducerModel {
   response: string;
+  params: any;
 }
 
 /**
@@ -31,30 +33,9 @@ export interface ILobbyReducerState {
  * LobbyReducer Initial State Interface
  */
 const initialState: ILobbyReducerState = {
-  playersOnline: [
-    { uid: "1", title: "Player 1", icon: "#", badge: "You" },
-    { uid: "2", title: "Player 2", icon: "#" },
-    { uid: "3", title: "Player 3", icon: "#" },
-    { uid: "4", title: "Player 4", status: PLAYER_STATUS.ONLINE },
-    { uid: "5", title: "Player 5", status: PLAYER_STATUS.ONLINE, badge: 5 },
-    { uid: "6", title: "Player 6", status: PLAYER_STATUS.ONLINE },
-    { uid: "7", title: "Player 7", status: PLAYER_STATUS.ONLINE },
-    { uid: "8", title: "Player 8", status: PLAYER_STATUS.OFFLINE },
-    { uid: "9", title: "Player 9", status: PLAYER_STATUS.OFFLINE, badge: 99 },
-    { uid: "10", title: "Player 10", status: PLAYER_STATUS.OFFLINE },
-    { uid: "11", title: "Player 11", status: PLAYER_STATUS.OFFLINE },
-    { uid: "12", title: "Player 12", status: PLAYER_STATUS.OFFLINE },
-    { uid: "13", title: "Player 13", status: PLAYER_STATUS.OFFLINE },
-  ],
-  playersGroup: [
-    { uid: "6", title: "Player 6", status: PLAYER_STATUS.ONLINE },
-    { uid: "7", title: "Player 7", status: PLAYER_STATUS.ONLINE },
-  ],
-  playersEnemyGroup: [
-    { uid: "4", title: "Player 4", status: PLAYER_STATUS.ONLINE },
-    { uid: "5", title: "Player 5", status: PLAYER_STATUS.ONLINE },
-    { uid: "6", title: "Player 6", status: PLAYER_STATUS.ONLINE },
-  ],
+  playersOnline: [],
+  playersGroup: [],
+  playersEnemyGroup: [],
 };
 
 export const LobbyReducer = handleActions<
@@ -70,11 +51,15 @@ export const LobbyReducer = handleActions<
 
       return {
         ...state,
-        playersOnline: parts[1].split(",").filter(Boolean).map((uid) => ({
-          uid,
-          title: `Player #${uid}`,
-          status: PLAYER_STATUS.ONLINE,
-        })),
+        playersOnline: parts[1]
+          .split(",")
+          .filter(Boolean)
+          .map((uid) => ({
+            uid,
+            title: `Player #${uid}`,
+            status: PLAYER_STATUS.ONLINE,
+            badge: uid === action.payload.params.uid ? "You" : "",
+          })),
       };
     },
     [LOBBY_ACTION.PLAYERS_GROUP]: (state, action) => {
@@ -85,11 +70,14 @@ export const LobbyReducer = handleActions<
 
       return {
         ...state,
-        playersGroup: parts[1].split(",").filter(Boolean).map((uid) => ({
-          uid,
-          title: `Player #${uid}`,
-          status: PLAYER_STATUS.ONLINE,
-        })),
+        playersGroup: parts[1]
+          .split(",")
+          .filter(Boolean)
+          .map((uid) => ({
+            uid,
+            title: `Player #${uid}`,
+            status: PLAYER_STATUS.ONLINE,
+          })),
       };
     },
     [LOBBY_ACTION.PLAYERS_ENEMY_GROUP]: (state, action) => {
@@ -100,11 +88,14 @@ export const LobbyReducer = handleActions<
 
       return {
         ...state,
-        playersEnemyGroup: parts[1].split(",").filter(Boolean).map((uid) => ({
-          uid,
-          title: `Player #${uid}`,
-          status: PLAYER_STATUS.ONLINE,
-        })),
+        playersEnemyGroup: parts[1]
+          .split(",")
+          .filter(Boolean)
+          .map((uid) => ({
+            uid,
+            title: `Player #${uid}`,
+            status: PLAYER_STATUS.ONLINE,
+          })),
       };
     },
   },
