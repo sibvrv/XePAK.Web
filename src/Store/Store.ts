@@ -12,11 +12,7 @@ const getInitialState = () => {
   return JSON.parse(element.textContent || "") || {};
 };
 
-const store = createStore(
-  rootReducers,
-  getInitialState(),
-  applyMiddleware(AuthMiddleware, FetchMiddleware, LoggerMiddleware)
-);
+const store = createStore(rootReducers, getInitialState(), applyMiddleware(AuthMiddleware, FetchMiddleware, LoggerMiddleware));
 
 export type TStoreType = typeof store;
 export type TRootState = ReturnType<typeof store.getState>;

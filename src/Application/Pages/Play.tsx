@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import Lobby from '../Components/Lobby';
+import Lobby from "../Components/Lobby";
 
 /**
  * Play Props Interface
  */
-export interface IPlayProps {
-}
+export interface IPlayProps {}
 
 /**
  * Play State Interface
  */
-export interface IPlayState {
-}
+export interface IPlayState {}
 
 /**
  * Play
@@ -41,7 +39,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
   public render() {
     return (
       <>
-        <Lobby/>
+        <Lobby />
       </>
     );
   }

@@ -11,7 +11,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "fix": "run-s fix:*",
-    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:prettier": "prettier \"src/**/*.{ts,tsx}\" --write",
     "fix:lint": "eslint src --ext .ts,.tsx --fix"
   },
   "repository": {

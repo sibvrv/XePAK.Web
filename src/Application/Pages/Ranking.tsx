@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {BaseLayout} from '../Layouts/BaseLayout';
+import { BaseLayout } from "../Layouts/BaseLayout";
 
 /**
  * Ranking Props Interface
  */
-export interface IRankingProps {
-}
+export interface IRankingProps {}
 
 /**
  * Ranking State Interface
  */
-export interface IRankingState {
-}
+export interface IRankingState {}
 
 /**
  * Ranking
@@ -39,11 +37,7 @@ export class Ranking extends React.Component<IRankingProps, IRankingState> {
    * Render Ranking Component
    */
   public render() {
-    const {children} = this.props;
-    return (
-      <BaseLayout>
-        {children}
-      </BaseLayout>
-    );
+    const { children } = this.props;
+    return <BaseLayout>{children}</BaseLayout>;
   }
 }

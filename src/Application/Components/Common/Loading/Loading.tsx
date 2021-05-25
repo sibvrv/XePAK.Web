@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import styles from './Styles/Loading.module.css';
+import styles from "./Styles/Loading.module.css";
 
 /**
  * Loading Props Interface
  */
-export interface ILoadingProps {
-}
+export interface ILoadingProps {}
 
 /**
  * Loading State Interface
  */
-export interface ILoadingState {
-}
+export interface ILoadingState {}
 
 /**
  * Loading
@@ -41,9 +39,9 @@ export class Loading extends React.Component<ILoadingProps, ILoadingState> {
   public render() {
     return (
       <div className={styles.Loading}>
-        <div className={styles.LoadingRing}/>
+        <div className={styles.LoadingRing} />
         <div className={styles.LoadingText}>Loading</div>
       </div>
-    )
+    );
   }
 }

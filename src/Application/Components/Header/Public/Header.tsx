@@ -1,24 +1,23 @@
-import * as React from 'react';
-import {Link} from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import logoSecondary from '../../../../Assets/Logo/XEPAK_secondary.svg';
-import logoPrimary from '../../../../Assets/Logo/XePAK.svg';
-import logoDefault from '../../../../Assets/Logo/XePAK_default.svg';
-import {ROUTE} from '../../../../Constants/Routing';
-import styles from '../Styles/Header.module.css';
+import logoSecondary from "../../../../Assets/Logo/XEPAK_secondary.svg";
+import logoPrimary from "../../../../Assets/Logo/XePAK.svg";
+import logoDefault from "../../../../Assets/Logo/XePAK_default.svg";
+import { ROUTE } from "../../../../Constants/Routing";
+import styles from "../Styles/Header.module.css";
 
 /**
  * Header Props Interface
  */
 export interface IHeaderProps {
-  variation: 'default' | 'primary' | 'secondary';
+  variation: "default" | "primary" | "secondary";
 }
 
 /**
  * Header State Interface
  */
-export interface IHeaderState {
-}
+export interface IHeaderState {}
 
 const logoSet = {
   default: logoDefault,
@@ -36,7 +35,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
    * Default Props for Header Component
    */
   public static defaultProps: Partial<IHeaderProps> = {
-    variation: 'default',
+    variation: "default",
   };
 
   /**
@@ -53,12 +52,12 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
    * Render Header Component
    */
   public render() {
-    const {children, variation} = this.props;
+    const { children, variation } = this.props;
     return (
       <div className={styles.Header}>
         <div className={styles.Logo}>
           <Link to={ROUTE.PAGE_HOME}>
-            <img src={logoSet[variation]} alt="XEPAK"/>
+            <img src={logoSet[variation]} alt="XEPAK" />
           </Link>
         </div>
         {children}

@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {BaseLayout} from '../Layouts/BaseLayout';
+import { BaseLayout } from "../Layouts/BaseLayout";
 
 /**
  * Season Props Interface
  */
-export interface ISeasonProps {
-}
+export interface ISeasonProps {}
 
 /**
  * Season State Interface
  */
-export interface ISeasonState {
-}
+export interface ISeasonState {}
 
 /**
  * Season
@@ -39,11 +37,7 @@ export class Season extends React.Component<ISeasonProps, ISeasonState> {
    * Render Season Component
    */
   public render() {
-    const {children} = this.props;
-    return (
-      <BaseLayout>
-        {children}
-      </BaseLayout>
-    );
+    const { children } = this.props;
+    return <BaseLayout>{children}</BaseLayout>;
   }
 }

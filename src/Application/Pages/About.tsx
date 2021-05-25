@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {BaseLayout} from '../Layouts/BaseLayout';
+import { BaseLayout } from "../Layouts/BaseLayout";
 
 /**
  * About Props Interface
  */
-export interface IAboutProps {
-}
+export interface IAboutProps {}
 
 /**
  * About State Interface
  */
-export interface IAboutState {
-}
+export interface IAboutState {}
 
 /**
  * About
@@ -41,38 +39,43 @@ export class About extends React.Component<IAboutProps, IAboutState> {
   public render() {
     return (
       <BaseLayout>
-        This is a peer-to-peer arena-like shooter game built around ideas of destructive world, inertive movement and
-        relative projectile velocities. Should work best in webkit-based web browsers (Works "out of box" in
-        Chrome).<br/>
-        <br/>
-        <strong>Controls:</strong> W, S, A, D, 1, 2, 3, 4, 5, 6, Left Mouse Button, Right Mouse Button, Mouse Wheel
-        Click,
-        Space, Ctrl,
-        Esc, Enter and Tab.<br/>
-        <br/>
-        There are few game modes (some might be hidden just so it is quicker to find match):<br/>
-        * Free for all - you are against everyone else;<br/>
-        * Team vs Team - your team against enemy team;<br/>
-        * As One - multiple teams, 2 players per each.<br/>
-        <br/>
-        All game modes are endless, have timer and 6 weapons:<br/>
-        * Rifle<br/>
-        * Spark gun<br/>
-        * Shotgun<br/>
-        * Sniper rifle<br/>
-        * Rocket launcher<br/>
-        * Build tool<br/>
-        <br/>
-        Weapons have different stats such as knockback, self-knockback, damage, speed, projectile count and spread.<br/>
+        This is a peer-to-peer arena-like shooter game built around ideas of destructive world, inertive movement and relative projectile velocities. Should
+        work best in webkit-based web browsers (Works "out of box" in Chrome).
+        <br />
+        <br />
+        <strong>Controls:</strong> W, S, A, D, 1, 2, 3, 4, 5, 6, Left Mouse Button, Right Mouse Button, Mouse Wheel Click, Space, Ctrl, Esc, Enter and Tab.
+        <br />
+        <br />
+        There are few game modes (some might be hidden just so it is quicker to find match):
+        <ul>
+          <li>
+            <strong>Free for all</strong> - you are against everyone else;
+          </li>
+          <li>
+            <strong>Team vs Team</strong> - your team against enemy team;
+          </li>
+          <li>
+            <strong>As One</strong> - multiple teams, 2 players per each.
+          </li>
+        </ul>
+        <br />
+        All game modes are endless, have timer and 6 weapons:
+        <ul>
+          <li>Rifle</li>
+          <li>Spark gun</li>
+          <li>Shotgun</li>
+          <li>Sniper rifle</li>
+          <li>Rocket launcher</li>
+          <li>Build tool</li>
+        </ul>
+        <br />
+        Weapons have different stats such as knockback, self-knockback, damage, speed, projectile count and spread.
+        <br />
         <p>
-          It does use{' '}
-          <a href='https://threejs.org'>three.js</a>,{' '}
-          <a href='https://peerjs.com'>peer.js</a>,{' '}
-          <a href='https://www.bfxr.net/'>bfxr.net</a>,{' '}
-          <a href='http://pieroxy.net/blog/pages/lz-string/index.html'>lz-string.js</a> and{' '}
-          <a href='https://github.com/ftlabs/ftscroller'>ftscroller.js</a>.
+          It does use <a href="https://threejs.org">three.js</a>, <a href="https://peerjs.com">peer.js</a>, <a href="https://www.bfxr.net/">bfxr.net</a>,{" "}
+          <a href="http://pieroxy.net/blog/pages/lz-string/index.html">lz-string.js</a> and <a href="https://github.com/ftlabs/ftscroller">ftscroller.js</a>.
         </p>
-        Music by <a href='http://freemusicarchive.org/music/maD__Alg0rh1tm/'>maD & Alg0rh1tm</a>
+        Music by <a href="http://freemusicarchive.org/music/maD__Alg0rh1tm/">maD & Alg0rh1tm</a>
       </BaseLayout>
     );
   }

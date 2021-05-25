@@ -1,22 +1,19 @@
-import * as React from 'react';
-import {Link} from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import {ROUTE} from '../../Constants/Routing';
-import MiniProfile from '../Components/MiniProfile';
-import {BaseLayout} from '../Layouts/BaseLayout';
-
+import { ROUTE } from "../../Constants/Routing";
+import MiniProfile from "../Components/MiniProfile";
+import { BaseLayout } from "../Layouts/BaseLayout";
 
 /**
  * Home Props Interface
  */
-export interface IHomeProps {
-}
+export interface IHomeProps {}
 
 /**
  * Home State Interface
  */
-export interface IHomeState {
-}
+export interface IHomeState {}
 
 /**
  * Home
@@ -45,22 +42,20 @@ export class Home extends React.Component<IHomeProps, IHomeState> {
   public render() {
     return (
       <BaseLayout>
-
         <div className="PromotionalPackage">
           <div className="Slogan">
             Become a Pro <strong>XEPAK</strong> Player
           </div>
 
           <div>
-            <div className="AreYouReady">
-              Are you ready ?
-            </div>
-            <Link to={ROUTE.PAGE_PLAY} className="PlayNow">Play Now</Link>
+            <div className="AreYouReady">Are you ready ?</div>
+            <Link to={ROUTE.PAGE_PLAY} className="PlayNow">
+              Play Now
+            </Link>
           </div>
         </div>
 
-        <MiniProfile/>
-
+        <MiniProfile />
       </BaseLayout>
     );
   }

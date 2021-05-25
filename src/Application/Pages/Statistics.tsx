@@ -1,19 +1,17 @@
-import * as React from 'react';
+import * as React from "react";
 
 import CareerStatistics from "../Components/Statistics/CareerStatistics";
-import {BaseLayout} from '../Layouts/BaseLayout';
+import { BaseLayout } from "../Layouts/BaseLayout";
 
 /**
  * Statistics Props Interface
  */
-export interface IStatisticsProps {
-}
+export interface IStatisticsProps {}
 
 /**
  * Statistics State Interface
  */
-export interface IStatisticsState {
-}
+export interface IStatisticsState {}
 
 /**
  * Statistics
@@ -42,7 +40,7 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
   public render() {
     return (
       <BaseLayout>
-        <CareerStatistics/>
+        <CareerStatistics />
       </BaseLayout>
     );
   }

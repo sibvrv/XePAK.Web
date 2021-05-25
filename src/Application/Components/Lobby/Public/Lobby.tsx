@@ -1,10 +1,7 @@
 import * as React from "react";
 
 import { IAuthReducerState } from "../../../../Store/Reducers/AuthReducer";
-import {
-  ILobbyReducerState,
-  LOBBY_ACTION,
-} from "../../../../Store/Reducers/LobbyReducer";
+import { ILobbyReducerState, LOBBY_ACTION } from "../../../../Store/Reducers/LobbyReducer";
 import { ISystemReducerState } from "../../../../Store/Reducers/SystemReducer";
 import store from "../../../../Store/Store";
 import { Footer } from "../../Footer/Footer";
@@ -18,10 +15,7 @@ import styles from "../Styles/Lobby.module.css";
 /**
  * Lobby Props Interface
  */
-export interface ILobbyProps
-  extends ILobbyReducerState,
-    Pick<ISystemReducerState, "status">,
-    IAuthReducerState {}
+export interface ILobbyProps extends ILobbyReducerState, Pick<ISystemReducerState, "status">, IAuthReducerState {}
 
 /**
  * Lobby State Interface
@@ -41,15 +35,7 @@ const resetUIDs: Partial<ILobbyState> = {
   enemyGroupUID: "",
 };
 
-const Button = ({
-  onClick,
-  children,
-  id,
-}: {
-  onClick: () => void;
-  id?: string;
-  children: any;
-}) => (
+const Button = ({ onClick, children, id }: { onClick: () => void; id?: string; children: any }) => (
   <div {...(id ? { id } : {})} className={styles.Button} onClick={onClick}>
     {children}
   </div>
@@ -64,8 +50,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
   /**
    * Variables
    */
-  hideDialogTimer = 0;
-  pingTimer = 0;
+  private hideDialogTimer = 0;
+  private pingTimer = 0;
+  private onlineSkip = -1;
 
   /**
    * Default Props for Lobby Component
@@ -130,11 +117,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
       uid
     );
 
-  private activatePlayerContext = (
-    e: React.MouseEvent,
-    states: Partial<ILobbyState>,
-    uid: string
-  ) => {
+  private activatePlayerContext = (e: React.MouseEvent, states: Partial<ILobbyState>, uid: string) => {
     e.stopPropagation();
 
     if (e.currentTarget) {
@@ -169,36 +152,29 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     });
   };
 
-  componentDidMount() {
-    store.dispatch({ type: "AUTH", payload: {} });
+  private pingLoop = () => {
+    const { uid, pass, loginKey, passwordKey } = store.getState().auth;
+    if (!uid || !pass || !passwordKey) {
+      store.dispatch({ type: "AUTH", payload: {} });
+      return;
+    }
 
-    let onlineSkip = -1;
-
-    this.pingTimer = window.setInterval(() => {
-      const { uid, pass, loginKey, passwordKey } = store.getState().auth;
-      if (!uid || !pass || !passwordKey) {
-        store.dispatch({ type: "AUTH", payload: {} });
-        return;
-      }
-
-      store.dispatch({
-        type: "FETCH",
-        payload: {
-          params: {
-            request: "quick_play_ping",
-            uid,
-            key: loginKey,
-            pass_plus_key: passwordKey,
-            peer_id: null,
-          },
+    store.dispatch({
+      type: "FETCH",
+      payload: {
+        params: {
+          request: "quick_play_ping",
+          uid,
+          key: loginKey,
+          pass_plus_key: passwordKey,
+          peer_id: null,
         },
-      });
+      },
+    });
 
-      onlineSkip = (onlineSkip + 1) % 3;
-      if (onlineSkip) {
-        return;
-      }
+    this.onlineSkip++;
 
+    if (!(this.onlineSkip % 3)) {
       store.dispatch({
         type: "FETCH",
         payload: {
@@ -211,7 +187,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
           },
         },
       });
+    }
 
+    if (!(this.onlineSkip % 4)) {
       store.dispatch({
         type: "FETCH",
         payload: {
@@ -224,7 +202,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
           },
         },
       });
+    }
 
+    if (!(this.onlineSkip % 4)) {
       store.dispatch({
         type: "FETCH",
         payload: {
@@ -237,7 +217,13 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
           },
         },
       });
-    }, 1000);
+    }
+  };
+
+  componentDidMount() {
+    this.onlineSkip = -1;
+    this.pingLoop();
+    this.pingTimer = window.setInterval(this.pingLoop, 1000);
   }
 
   public componentWillUnmount() {
@@ -272,61 +258,38 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     });
   };
 
+  componentDidUpdate(prevProps: Readonly<ILobbyProps>) {
+    if (this.props.passwordKey && prevProps.passwordKey !== this.props.passwordKey) {
+      this.pingLoop();
+    }
+  }
+
   /**
    * Render Lobby Component
    */
   public render() {
-    const { status, playersOnline, playersGroup, playersEnemyGroup } =
-      this.props;
+    const { status, playersOnline, playersGroup, playersEnemyGroup, uid } = this.props;
     const { userDialog, playerUID, groupUID, enemyGroupUID } = this.state;
 
-    const myUid = "1";
-
     return (
-      <div
-        id="lobby_ui"
-        className={styles.Container}
-        onClick={this.hideDialogs}
-      >
+      <div id="lobby_ui" className={styles.Container} onClick={this.hideDialogs}>
         <div className={styles.ContainerInner}>
           <Header variation="secondary">
             <MainMenu variation="secondary" />
           </Header>
 
           <div className={styles.GameModeActions}>
-            <Button onClick={() => sdNet.OfflineTraining(2)}>
-              Play solo vs AI
-            </Button>
-            <Button onClick={() => sdNet.OfflineTraining(1)}>
-              Play with AI vs AI
-            </Button>
+            <Button onClick={() => sdNet.OfflineTraining(2)}>Play solo vs AI</Button>
+            <Button onClick={() => sdNet.OfflineTraining(1)}>Play with AI vs AI</Button>
             <Button onClick={() => sdNet.OfflineTraining(0)}>Play alone</Button>
-            <Button
-              onClick={() => sdNet.QuickPlay(sdNet.MODE_FFA)}
-              id="play_ffa_btn"
-            >
-              Quick Play FFA{" "}
-              <span className={styles.ButtonHighlight}>
-                (2+ players, multiplayer)
-              </span>
+            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_FFA)} id="play_ffa_btn">
+              Quick Play FFA <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
             </Button>
-            <Button
-              onClick={() => sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)}
-              id="play_tvt_btn"
-            >
-              Quick Play TvT{" "}
-              <span className={styles.ButtonHighlight}>
-                (2+ players, multiplayer)
-              </span>
+            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)} id="play_tvt_btn">
+              Quick Play TvT <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
             </Button>
-            <Button
-              onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)}
-              id="play_as1_btn"
-            >
-              Quick Play As One{" "}
-              <span className={styles.ButtonHighlight}>
-                (4+ players, multiplayer)
-              </span>
+            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)} id="play_as1_btn">
+              Quick Play As One <span className={styles.ButtonHighlight}>(4+ players, multiplayer)</span>
             </Button>
             <div id="status_field" className={styles.StatusField}>
               {status}
@@ -335,33 +298,18 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
 
           <div className={styles.Content}>
             <div className={styles.PlayersOnline}>
-              <PlayerList
-                title="Players in lobby now"
-                active={playerUID}
-                players={playersOnline}
-                onClick={this.onOnlinePlayerClick}
-              />
+              <PlayerList title="Players in lobby now" active={playerUID} players={playersOnline} onClick={this.onOnlinePlayerClick} />
             </div>
 
             {playersGroup.length > 0 && (
               <div className={styles.PlayersGroup}>
-                <PlayerList
-                  title="Your group"
-                  active={groupUID}
-                  players={playersGroup}
-                  onClick={this.onGroupPlayerClick}
-                />
+                <PlayerList title="Your group" active={groupUID} players={playersGroup} onClick={this.onGroupPlayerClick} />
               </div>
             )}
 
             {playersEnemyGroup.length > 0 && (
               <div className={styles.PlayersGroup}>
-                <PlayerList
-                  title="Your opponent group"
-                  active={enemyGroupUID}
-                  players={playersEnemyGroup}
-                  onClick={this.onEnemyGroupPlayerClick}
-                />
+                <PlayerList title="Your opponent group" active={enemyGroupUID} players={playersEnemyGroup} onClick={this.onEnemyGroupPlayerClick} />
               </div>
             )}
           </div>
@@ -378,18 +326,14 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
             style={{ left: userDialog.x, top: userDialog.y }}
           >
             <ContextMenu>
-              {userDialog.uid !== myUid && (
+              {userDialog.uid !== uid && (
                 <>
-                  <ContextMenuItem onClick={this.inviteToGroup}>
-                    Invite to my teammate group
-                  </ContextMenuItem>
-                  <ContextMenuItem>
-                    Invite as opponent group leader
-                  </ContextMenuItem>
+                  <ContextMenuItem onClick={this.inviteToGroup}>Invite to my teammate group</ContextMenuItem>
+                  <ContextMenuItem>Invite as opponent group leader</ContextMenuItem>
                 </>
               )}
 
-              {userDialog.uid === myUid && (
+              {userDialog.uid === uid && (
                 <>
                   <ContextMenuItem>Reset my teammate group</ContextMenuItem>
                   <ContextMenuItem>Reset opponent group</ContextMenuItem>

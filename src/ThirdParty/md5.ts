@@ -62,24 +62,9 @@ function str2rstr_utf8(input: string) {
 
     /* Encode output as utf-8 */
     if (x <= 0x7f) output += String.fromCharCode(x);
-    else if (x <= 0x7ff)
-      output += String.fromCharCode(
-        0xc0 | ((x >>> 6) & 0x1f),
-        0x80 | (x & 0x3f)
-      );
-    else if (x <= 0xffff)
-      output += String.fromCharCode(
-        0xe0 | ((x >>> 12) & 0x0f),
-        0x80 | ((x >>> 6) & 0x3f),
-        0x80 | (x & 0x3f)
-      );
-    else if (x <= 0x1fffff)
-      output += String.fromCharCode(
-        0xf0 | ((x >>> 18) & 0x07),
-        0x80 | ((x >>> 12) & 0x3f),
-        0x80 | ((x >>> 6) & 0x3f),
-        0x80 | (x & 0x3f)
-      );
+    else if (x <= 0x7ff) output += String.fromCharCode(0xc0 | ((x >>> 6) & 0x1f), 0x80 | (x & 0x3f));
+    else if (x <= 0xffff) output += String.fromCharCode(0xe0 | ((x >>> 12) & 0x0f), 0x80 | ((x >>> 6) & 0x3f), 0x80 | (x & 0x3f));
+    else if (x <= 0x1fffff) output += String.fromCharCode(0xf0 | ((x >>> 18) & 0x07), 0x80 | ((x >>> 12) & 0x3f), 0x80 | ((x >>> 6) & 0x3f), 0x80 | (x & 0x3f));
   }
   return output;
 }
@@ -91,8 +76,7 @@ function str2rstr_utf8(input: string) {
 function rstr2binl(input: string) {
   const output = Array(input.length >> 2);
   for (let i = 0; i < output.length; i++) output[i] = 0;
-  for (let i = 0; i < input.length * 8; i += 8)
-    output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << i % 32;
+  for (let i = 0; i < input.length * 8; i += 8) output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << i % 32;
   return output;
 }
 
@@ -101,8 +85,7 @@ function rstr2binl(input: string) {
  */
 function binl2rstr(input: number[]) {
   let output = "";
-  for (let i = 0; i < input.length * 32; i += 8)
-    output += String.fromCharCode((input[i >> 5] >>> i % 32) & 0xff);
+  for (let i = 0; i < input.length * 32; i += 8) output += String.fromCharCode((input[i >> 5] >>> i % 32) & 0xff);
   return output;
 }
 
@@ -204,62 +187,23 @@ function binl_md5(x: number[], len: number) {
 /*
  * These functions implement the four basic operations the algorithm uses.
  */
-function md5_cmn(
-  q: number,
-  a: number,
-  b: number,
-  x: number,
-  s: number,
-  t: number
-) {
+function md5_cmn(q: number, a: number, b: number, x: number, s: number, t: number) {
   return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
 }
 
-function md5_ff(
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  x: number,
-  s: number,
-  t: number
-) {
+function md5_ff(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
   return md5_cmn((b & c) | (~b & d), a, b, x, s, t);
 }
 
-function md5_gg(
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  x: number,
-  s: number,
-  t: number
-) {
+function md5_gg(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
   return md5_cmn((b & d) | (c & ~d), a, b, x, s, t);
 }
 
-function md5_hh(
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  x: number,
-  s: number,
-  t: number
-) {
+function md5_hh(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
   return md5_cmn(b ^ c ^ d, a, b, x, s, t);
 }
 
-function md5_ii(
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  x: number,
-  s: number,
-  t: number
-) {
+function md5_ii(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
   return md5_cmn(c ^ (b | ~d), a, b, x, s, t);
 }
 

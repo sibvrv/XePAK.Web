@@ -22,7 +22,4 @@ const initialState: ISystemReducerState = {
 /**
  * System Reducer
  */
-export const SystemReducer = handleActions<
-  ISystemReducerState,
-  ISystemReducerModel
->({}, initialState);
+export const SystemReducer = handleActions<ISystemReducerState, ISystemReducerModel>({}, initialState);

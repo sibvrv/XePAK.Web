@@ -1,22 +1,20 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {Footer} from '../Components/Footer/Footer';
-import {Header} from '../Components/Header';
-import {MainMenu} from '../Components/MainMenu';
+import { Footer } from "../Components/Footer/Footer";
+import { Header } from "../Components/Header";
+import { MainMenu } from "../Components/MainMenu";
 
-import styles from './Styles/BaseLayout.module.css';
+import styles from "./Styles/BaseLayout.module.css";
 
 /**
  * BaseLayout Props Interface
  */
-export interface IBaseLayoutProps {
-}
+export interface IBaseLayoutProps {}
 
 /**
  * BaseLayout State Interface
  */
-export interface IBaseLayoutState {
-}
+export interface IBaseLayoutState {}
 
 /**
  * BaseLayout
@@ -43,16 +41,14 @@ export class BaseLayout extends React.Component<IBaseLayoutProps, IBaseLayoutSta
    * Render BaseLayout Component
    */
   public render() {
-    const {children} = this.props;
+    const { children } = this.props;
     return (
       <div className={styles.Layout}>
         <Header>
-          <MainMenu/>
+          <MainMenu />
         </Header>
-        <div className={styles.Content}>
-          {children}
-        </div>
-        <Footer/>
+        <div className={styles.Content}>{children}</div>
+        <Footer />
       </div>
     );
   }

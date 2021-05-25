@@ -1,21 +1,20 @@
-import * as React from 'react';
-import {Link} from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import {ROUTE} from '../../../../Constants/Routing';
-import styles from '../Styles/MainMenu.module.css';
+import { ROUTE } from "../../../../Constants/Routing";
+import styles from "../Styles/MainMenu.module.css";
 
 /**
  * MainMenu Props Interface
  */
 export interface IMainMenuProps {
-  variation: 'primary' | 'secondary';
+  variation: "primary" | "secondary";
 }
 
 /**
  * MainMenu State Interface
  */
-export interface IMainMenuState {
-}
+export interface IMainMenuState {}
 
 const stylesMap = {
   primary: styles.Primary,
@@ -32,7 +31,7 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
    * Default Props for MainMenu Component
    */
   public static defaultProps: Partial<IMainMenuProps> = {
-    variation: 'primary',
+    variation: "primary",
   };
 
   /**
@@ -49,12 +48,18 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
    * Render MainMenu Component
    */
   public render() {
-    const {variation} = this.props;
+    const { variation } = this.props;
     return (
       <div className={stylesMap[variation]}>
-        <Link to={ROUTE.PAGE_RANKING} className={styles.MenuItem}>Ranking</Link>
-        <Link to={ROUTE.PAGE_SEASON} className={styles.MenuItem}>Season</Link>
-        <Link to={ROUTE.PAGE_STATISTICS} className={styles.MenuItem}>Statistics</Link>
+        <Link to={ROUTE.PAGE_RANKING} className={styles.MenuItem}>
+          Ranking
+        </Link>
+        <Link to={ROUTE.PAGE_SEASON} className={styles.MenuItem}>
+          Season
+        </Link>
+        <Link to={ROUTE.PAGE_STATISTICS} className={styles.MenuItem}>
+          Statistics
+        </Link>
       </div>
     );
   }

@@ -1,9 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import {
-  IPlayerInfo,
-  PLAYER_STATUS,
-} from "../../Application/Components/Lobby/Components/PlayerList/PlayerList";
+import { IPlayerInfo, PLAYER_STATUS } from "../../Application/Components/Lobby/Components/PlayerList/PlayerList";
 
 export enum LOBBY_ACTION {
   PLAYERS_ONLINE = "PLAYERS_ONLINE",
@@ -38,10 +35,7 @@ const initialState: ILobbyReducerState = {
   playersEnemyGroup: [],
 };
 
-export const LobbyReducer = handleActions<
-  ILobbyReducerState,
-  ILobbyReducerModel
->(
+export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel>(
   {
     [LOBBY_ACTION.PLAYERS_ONLINE]: (state, action) => {
       const { parts, status } = action.payload.response;

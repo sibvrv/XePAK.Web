@@ -19,10 +19,7 @@ export interface IPlayerStatsState {
   averageLifetime: number;
   KDR: number; // Kill Death Ratio
 
-  weapon: Record<
-    string,
-    { accuracy: number; hits: number; kills: number; damage: number }
-  >;
+  weapon: Record<string, { accuracy: number; hits: number; kills: number; damage: number }>;
 }
 
 /**
@@ -41,7 +38,4 @@ const initialState: IPlayerStatsState = {
   weapon: {},
 };
 
-export const PlayerStatsReducer = handleActions<
-  IPlayerStatsState,
-  IPlayerStatsModel
->({}, initialState);
+export const PlayerStatsReducer = handleActions<IPlayerStatsState, IPlayerStatsModel>({}, initialState);

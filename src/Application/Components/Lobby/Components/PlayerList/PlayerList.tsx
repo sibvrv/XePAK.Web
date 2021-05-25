@@ -35,34 +35,12 @@ export interface IPlayerListProps {
  */
 export interface IPlayerListState {}
 
-const Item = ({
-  icon,
-  title,
-  active,
-  status = PLAYER_STATUS.NONE,
-  badge,
-  onClick,
-}: IPlayerInfo & { onClick: (e: React.MouseEvent) => void }) => (
-  <div
-    onClick={onClick}
-    className={
-      active
-        ? styles.Active
-        : status === PLAYER_STATUS.OFFLINE
-        ? styles.Offline
-        : styles.Item
-    }
-  >
+const Item = ({ icon, title, active, status = PLAYER_STATUS.NONE, badge, onClick }: IPlayerInfo & { onClick: (e: React.MouseEvent) => void }) => (
+  <div onClick={onClick} className={active ? styles.Active : status === PLAYER_STATUS.OFFLINE ? styles.Offline : styles.Item}>
     {status === PLAYER_STATUS.NONE ? (
       <div className={styles.Icon}>{icon}</div>
     ) : (
-      <div
-        className={
-          status === PLAYER_STATUS.ONLINE
-            ? styles.StatusOnline
-            : styles.StatusOffline
-        }
-      />
+      <div className={status === PLAYER_STATUS.ONLINE ? styles.StatusOnline : styles.StatusOffline} />
     )}
     <div className={styles.Element}>{title}</div>
     {badge && <div className={styles.Badge}>{badge}</div>}
@@ -74,10 +52,7 @@ const Item = ({
  * @class PlayerList
  * @extends Component
  */
-export class PlayerList extends React.Component<
-  IPlayerListProps,
-  IPlayerListState
-> {
+export class PlayerList extends React.Component<IPlayerListProps, IPlayerListState> {
   /**
    * Default Props for PlayerList Component
    */
@@ -109,12 +84,7 @@ export class PlayerList extends React.Component<
 
         <div className={styles.Section}>
           {players.map((player) => (
-            <Item
-              key={`pl_${player.title}`}
-              onClick={(e) => onClick(e, player.uid)}
-              active={player.uid === active}
-              {...player}
-            />
+            <Item key={`pl_${player.title}`} onClick={(e) => onClick(e, player.uid)} active={player.uid === active} {...player} />
           ))}
         </div>
       </>

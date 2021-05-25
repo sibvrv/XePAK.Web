@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import styles from './Styles/Footer.module.css';
+import styles from "./Styles/Footer.module.css";
 
 /**
  * Footer Props Interface
  */
-export interface IFooterProps {
-}
+export interface IFooterProps {}
 
 /**
  * Footer State Interface
  */
-export interface IFooterState {
-}
+export interface IFooterState {}
 
 /**
  * Footer
@@ -39,11 +37,10 @@ export class Footer extends React.Component<IFooterProps, IFooterState> {
    * Render Footer Component
    */
   public render() {
-    const {children} = this.props;
+    const { children } = this.props;
     return (
       <footer className={styles.Footer}>
         2021 &copy; <a href="https://www.sibvrv.com/">SibVRV</a>
-
         {children}
       </footer>
     );

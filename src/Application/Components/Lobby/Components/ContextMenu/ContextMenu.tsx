@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import styles from './Styles/ContextMenu.module.css';
+import styles from "./Styles/ContextMenu.module.css";
 
 /**
  * ContextMenu Props Interface
  */
-export interface IContextMenuProps {
-}
+export interface IContextMenuProps {}
 
 /**
  * ContextMenu State Interface
  */
-export interface IContextMenuState {
-}
+export interface IContextMenuState {}
 
 /**
  * ContextMenu
@@ -39,11 +37,7 @@ export class ContextMenu extends React.Component<IContextMenuProps, IContextMenu
    * Render ContextMenu Component
    */
   public render() {
-    const {children} = this.props;
-    return (
-      <div className={styles.Context}>
-        {children}
-      </div>
-    )
+    const { children } = this.props;
+    return <div className={styles.Context}>{children}</div>;
   }
 }

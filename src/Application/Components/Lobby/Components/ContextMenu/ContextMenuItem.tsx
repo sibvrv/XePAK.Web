@@ -21,10 +21,7 @@ export interface IContextMenuItemState {}
  * @class ContextMenuItem
  * @extends Component
  */
-export class ContextMenuItem extends React.Component<
-  IContextMenuItemProps,
-  IContextMenuItemState
-> {
+export class ContextMenuItem extends React.Component<IContextMenuItemProps, IContextMenuItemState> {
   /**
    * Default Props for ContextMenuItem Component
    */
