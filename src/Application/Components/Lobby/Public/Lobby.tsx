@@ -152,8 +152,73 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     });
   };
 
+  private acceptUsersGroup(userUID: string | number) {
+    const { uid, loginKey, passwordKey } = this.props;
+    store.dispatch({
+      type: "FETCH",
+      payload: {
+        action: "AUTH",
+        success: LOBBY_ACTION.ACCEPT_GROUP_INVITE,
+        params: {
+          request: "accept_group_invite",
+          uid,
+          key: loginKey,
+          pass_plus_key: passwordKey,
+          from_uid: userUID,
+        },
+      },
+    });
+  }
+
+  private resetTeammateGroup = () => {
+    this.acceptUsersGroup(-1);
+    this.hideDialogs();
+  };
+
+  private resetOpponentGroup = () => {
+    this.acceptUsersGroup(-2);
+    this.hideDialogs();
+  };
+
+  private inviteToGroup = (isEnemyRequest = 0) => {
+    const { uid, pass, loginKey, passwordKey } = this.props;
+    const { userDialog } = this.state;
+    if (!userDialog) {
+      return;
+    }
+
+    if (!uid || !pass || !passwordKey) {
+      return;
+    }
+
+    store.dispatch({
+      type: "FETCH",
+      payload: {
+        action: LOBBY_ACTION.INVITE_TO_GROUP,
+        params: {
+          request: "invite_to_group",
+          uid,
+          key: loginKey,
+          pass_plus_key: passwordKey,
+          to_uid: userDialog.uid,
+          is_enemy_request: isEnemyRequest,
+        },
+      },
+    });
+  };
+
+  private inviteAsTeammate = () => {
+    this.inviteToGroup();
+    this.hideDialogs();
+  };
+
+  private inviteAsOpponent = () => {
+    this.inviteToGroup(1);
+    this.hideDialogs();
+  };
+
   private pingLoop = () => {
-    const { uid, pass, loginKey, passwordKey } = store.getState().auth;
+    const { uid, pass, loginKey, passwordKey } = this.props;
     if (!uid || !pass || !passwordKey) {
       store.dispatch({ type: "AUTH", payload: {} });
       return;
@@ -231,33 +296,6 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     window.clearInterval(this.pingTimer);
   }
 
-  private inviteToGroup = () => {
-    const { uid, pass, loginKey, passwordKey } = store.getState().auth;
-    const { userDialog } = this.state;
-    if (!userDialog) {
-      return;
-    }
-
-    if (!uid || !pass || !passwordKey) {
-      return;
-    }
-
-    store.dispatch({
-      type: "FETCH",
-      payload: {
-        action: LOBBY_ACTION.INVITE_TO_GROUP,
-        params: {
-          request: "invite_to_group",
-          uid,
-          key: loginKey,
-          pass_plus_key: passwordKey,
-          to_uid: userDialog.uid,
-          is_enemy_request: 0,
-        },
-      },
-    });
-  };
-
   componentDidUpdate(prevProps: Readonly<ILobbyProps>) {
     if (this.props.passwordKey && prevProps.passwordKey !== this.props.passwordKey) {
       this.pingLoop();
@@ -301,7 +339,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
               <PlayerList title="Players in lobby now" active={playerUID} players={playersOnline} onClick={this.onOnlinePlayerClick} />
             </div>
 
-            {playersGroup.length > 0 && (
+            {playersGroup.length > 1 && (
               <div className={styles.PlayersGroup}>
                 <PlayerList title="Your group" active={groupUID} players={playersGroup} onClick={this.onGroupPlayerClick} />
               </div>
@@ -328,15 +366,15 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
             <ContextMenu>
               {userDialog.uid !== uid && (
                 <>
-                  <ContextMenuItem onClick={this.inviteToGroup}>Invite to my teammate group</ContextMenuItem>
-                  <ContextMenuItem>Invite as opponent group leader</ContextMenuItem>
+                  <ContextMenuItem onClick={this.inviteAsTeammate}>Invite to my teammate group</ContextMenuItem>
+                  <ContextMenuItem onClick={this.inviteAsOpponent}>Invite as opponent group leader</ContextMenuItem>
                 </>
               )}
 
               {userDialog.uid === uid && (
                 <>
-                  <ContextMenuItem>Reset my teammate group</ContextMenuItem>
-                  <ContextMenuItem>Reset opponent group</ContextMenuItem>
+                  <ContextMenuItem onClick={this.resetTeammateGroup}>Reset my teammate group</ContextMenuItem>
+                  <ContextMenuItem onClick={this.resetOpponentGroup}>Reset opponent group</ContextMenuItem>
                 </>
               )}
             </ContextMenu>
