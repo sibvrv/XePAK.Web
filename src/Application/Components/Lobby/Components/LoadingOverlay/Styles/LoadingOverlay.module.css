@@ -1,0 +1,71 @@
+.Overlay {
+  background: repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.75) 0px, rgba(0, 0, 0, 0.75) 10px, rgba(0, 0, 0, 0.8) 10px, rgba(0, 0, 0, 0.8) 20px);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.Context {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ModalBox {
+  position: relative;
+  text-align: center;
+  width: 79vmin;
+  padding: 0 2vmin;
+  font-size: 1.75vmin;
+  font-weight: bold;
+
+  border-left: 1px solid var(--colors-primary--500);
+  border-right: 1px solid var(--colors-primary--500);
+  border-radius: 2px;
+}
+
+.Border {
+  position: absolute;
+}
+
+.Border svg {
+  width: 15vmin;
+}
+
+.BorderLeftTop {
+  composes: Border;
+  left: 0;
+  top: -5vmin;
+}
+
+.BorderRightTop {
+  composes: Border;
+  right: 0;
+  top: -5vmin;
+  transform: scale(-1, 1);
+}
+
+.BorderLeftBottom {
+  composes: Border;
+  left: 0;
+  bottom: -5vmin;
+  transform: scale(1, -1);
+}
+
+.BorderRightBottom {
+  composes: Border;
+  right: 0;
+  bottom: -5vmin;
+  transform: scale(-1, -1);
+}
+
+.Info {
+  color: #474;
+}

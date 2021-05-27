@@ -9,6 +9,7 @@ import { Header } from "../../Header";
 import { MainMenu } from "../../MainMenu";
 import { ContextMenu } from "../Components/ContextMenu/ContextMenu";
 import { ContextMenuItem } from "../Components/ContextMenu/ContextMenuItem";
+import { LoadingOverlay } from "../Components/LoadingOverlay/LoadingOverlay";
 import { PlayerList } from "../Components/PlayerList/PlayerList";
 import styles from "../Styles/Lobby.module.css";
 
@@ -21,6 +22,7 @@ export interface ILobbyProps extends ILobbyReducerState, Pick<ISystemReducerStat
  * Lobby State Interface
  */
 export interface ILobbyState {
+  isLoading: boolean;
   userDialog: { uid: string; x: number; y: number } | false;
   playerUID: string;
   groupUID: string;
@@ -71,6 +73,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
       playerUID: "",
       groupUID: "",
       enemyGroupUID: "",
+      isLoading: false,
     };
   }
 
@@ -307,7 +310,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
    */
   public render() {
     const { status, playersOnline, playersGroup, playersEnemyGroup, uid } = this.props;
-    const { userDialog, playerUID, groupUID, enemyGroupUID } = this.state;
+    const { userDialog, playerUID, groupUID, enemyGroupUID, isLoading } = this.state;
 
     return (
       <div id="lobby_ui" className={styles.Container} onClick={this.hideDialogs}>
@@ -380,6 +383,8 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
             </ContextMenu>
           </div>
         )}
+
+        {isLoading && <LoadingOverlay />}
       </div>
     );
   }

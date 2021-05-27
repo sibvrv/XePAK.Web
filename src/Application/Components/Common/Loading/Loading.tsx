@@ -5,7 +5,9 @@ import styles from "./Styles/Loading.module.css";
 /**
  * Loading Props Interface
  */
-export interface ILoadingProps {}
+export interface ILoadingProps {
+  caption: string;
+}
 
 /**
  * Loading State Interface
@@ -21,7 +23,9 @@ export class Loading extends React.Component<ILoadingProps, ILoadingState> {
   /**
    * Default Props for Loading Component
    */
-  public static defaultProps: Partial<ILoadingProps> = {};
+  public static defaultProps: Partial<ILoadingProps> = {
+    caption: "LOADING",
+  };
 
   /**
    * Loading Component Constructor
@@ -37,10 +41,11 @@ export class Loading extends React.Component<ILoadingProps, ILoadingState> {
    * Render Loading Component
    */
   public render() {
+    const { caption } = this.props;
     return (
       <div className={styles.Loading}>
         <div className={styles.LoadingRing} />
-        <div className={styles.LoadingText}>Loading</div>
+        <div className={styles.LoadingText}>{caption}</div>
       </div>
     );
   }
