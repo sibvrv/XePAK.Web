@@ -317,11 +317,11 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
           </Header>
 
           <div className={styles.GameModeActions}>
-            <Button onClick={() => sdNet.OfflineTraining(2)}>Play solo vs AI</Button>
+            <Button onClick={() => sdNet.OfflineTraining(2)}>Practice VS. AI</Button>
             <Button onClick={() => sdNet.OfflineTraining(1)}>Play with AI vs AI</Button>
             <Button onClick={() => sdNet.OfflineTraining(0)}>Play alone</Button>
             <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_FFA)} id="play_ffa_btn">
-              Quick Play FFA <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
+              Free For All <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
             </Button>
             <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)} id="play_tvt_btn">
               Quick Play TvT <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
