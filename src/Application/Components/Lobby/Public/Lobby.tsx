@@ -13,6 +13,15 @@ import { LoadingOverlay } from "../Components/LoadingOverlay/LoadingOverlay";
 import { PlayerList } from "../Components/PlayerList/PlayerList";
 import styles from "../Styles/Lobby.module.css";
 
+export enum GAME_MODE {
+  MODE_PRACTICE_VS_AI,
+  MODE_PRACTICE_AI_VS_AI,
+  MODE_PRACTICE_SOLO,
+  MODE_FFA,
+  MODE_TEAM_DEATH_MATCH,
+  MODE_AS_ONE,
+}
+
 /**
  * Lobby Props Interface
  */
@@ -288,6 +297,34 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     }
   };
 
+  public onPlayClick = (mode: GAME_MODE) => {
+    this.setState({
+      userDialog: false,
+      isLoading: true,
+    });
+
+    switch (mode) {
+      case GAME_MODE.MODE_PRACTICE_VS_AI:
+        sdNet.OfflineTraining(2);
+        break;
+      case GAME_MODE.MODE_PRACTICE_AI_VS_AI:
+        sdNet.OfflineTraining(1);
+        break;
+      case GAME_MODE.MODE_PRACTICE_SOLO:
+        sdNet.OfflineTraining(0);
+        break;
+      case GAME_MODE.MODE_FFA:
+        sdNet.QuickPlay(sdNet.MODE_FFA);
+        break;
+      case GAME_MODE.MODE_TEAM_DEATH_MATCH:
+        sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)
+        break;
+      case GAME_MODE.MODE_AS_ONE:
+        sdNet.QuickPlay(sdNet.MODE_AS_ONE);
+        break;
+    }
+  };
+
   componentDidMount() {
     this.onlineSkip = -1;
     this.pingLoop();
@@ -320,16 +357,16 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
           </Header>
 
           <div className={styles.GameModeActions}>
-            <Button onClick={() => sdNet.OfflineTraining(2)}>Practice VS. AI</Button>
-            <Button onClick={() => sdNet.OfflineTraining(1)}>Play with AI vs AI</Button>
-            <Button onClick={() => sdNet.OfflineTraining(0)}>Play alone</Button>
-            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_FFA)} id="play_ffa_btn">
+            <Button onClick={() => this.onPlayClick(GAME_MODE.MODE_PRACTICE_VS_AI)}>Practice VS. AI</Button>
+            <Button onClick={() => this.onPlayClick(GAME_MODE.MODE_PRACTICE_AI_VS_AI)}>Play with AI vs AI</Button>
+            <Button onClick={() => this.onPlayClick(GAME_MODE.MODE_PRACTICE_SOLO)}>Play alone</Button>
+            <Button onClick={() => this.onPlayClick(GAME_MODE.MODE_FFA)} id="play_ffa_btn">
               Free For All <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
             </Button>
-            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)} id="play_tvt_btn">
+            <Button onClick={() => this.onPlayClick(GAME_MODE.MODE_TEAM_DEATH_MATCH)} id="play_tvt_btn">
               Quick Play TvT <span className={styles.ButtonHighlight}>(2+ players, multiplayer)</span>
             </Button>
-            <Button onClick={() => sdNet.QuickPlay(sdNet.MODE_AS_ONE)} id="play_as1_btn">
+            <Button onClick={() => this.onPlayClick(GAME_MODE.MODE_AS_ONE)} id="play_as1_btn">
               Quick Play As One <span className={styles.ButtonHighlight}>(4+ players, multiplayer)</span>
             </Button>
             <div id="status_field" className={styles.StatusField}>
