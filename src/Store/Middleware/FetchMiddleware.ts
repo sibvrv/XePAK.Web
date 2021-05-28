@@ -5,7 +5,7 @@ const requestStack: {
   params: Record<string, string>;
 }[] = [];
 
-const serverAPI = `https://www.xepak.com/play/server.php`;
+const serverAPI = `https://www.xepak.com/api/server.php`;
 let worker = false;
 
 function toJSON(response: string) {
@@ -42,7 +42,7 @@ function startFakeWorker(store: MiddlewareAPI) {
           if (request.action) {
             const response = toJSON(responseString);
 
-            if (response.status !== "done") {
+            if (response.status === "error") {
               store.dispatch({
                 type: "FETCH_ERROR",
                 payload: {
@@ -50,6 +50,10 @@ function startFakeWorker(store: MiddlewareAPI) {
                   response,
                 },
               });
+              return;
+            }
+
+            if (response.status !== "done") {
               return;
             }
 

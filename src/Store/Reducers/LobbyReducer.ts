@@ -38,6 +38,10 @@ const initialState: ILobbyReducerState = {
 
 export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel>(
   {
+    FETCH_ERROR: (state, action) => {
+      alert(JSON.stringify(action.payload.response.parts.join(', ')));
+      return state;
+    },
     [LOBBY_ACTION.PLAYERS_ONLINE]: (state, action) => {
       const { parts, status } = action.payload.response;
       if (status !== "done") {
@@ -69,8 +73,9 @@ export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel
           .split(",")
           .filter(Boolean)
           .map((uid) => ({
-            uid,
-            title: `Player #${uid}`,
+            invite: uid.indexOf(">") === 0,
+            uid: uid.replace(/^>/, ""),
+            title: `Player #${uid.replace(/^>/, "")}`,
             status: PLAYER_STATUS.ONLINE,
           })),
       };
@@ -87,8 +92,9 @@ export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel
           .split(",")
           .filter(Boolean)
           .map((uid) => ({
-            uid,
-            title: `Player #${uid}`,
+            invite: uid.indexOf(">") === 0,
+            uid: uid.replace(/^>/, ""),
+            title: `Player #${uid.replace(/^>/, "")}`,
             status: PLAYER_STATUS.ONLINE,
           })),
       };

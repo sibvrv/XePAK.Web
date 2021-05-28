@@ -18,6 +18,7 @@ export interface IPlayerInfo {
   icon?: string;
   status?: PLAYER_STATUS;
   badge?: string | number;
+  invite?: boolean;
 }
 
 /**
