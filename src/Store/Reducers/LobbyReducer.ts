@@ -42,6 +42,22 @@ export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel
       alert(JSON.stringify(action.payload.response.parts.join(", ")));
       return state;
     },
+    [LOBBY_ACTION.ACCEPT_GROUP_INVITE]: (state, action) => {
+      const {
+        response: { status },
+        params: { from_uid },
+      } = action.payload;
+      if (status !== "done") {
+        return state;
+      }
+
+      // todo remove only invite by self uid
+      return {
+        ...state,
+        playersGroup: state.playersGroup.map((it) => (it.uid === from_uid ? { ...it, invite: false } : it)),
+        playersEnemyGroup: state.playersEnemyGroup.map((it) => (it.uid === from_uid ? { ...it, invite: false } : it)),
+      };
+    },
     [LOBBY_ACTION.PLAYERS_ONLINE]: (state, action) => {
       const { parts, status } = action.payload.response;
       if (status !== "done") {

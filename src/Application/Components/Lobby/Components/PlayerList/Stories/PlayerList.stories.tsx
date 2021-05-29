@@ -6,7 +6,7 @@ export default {
   title: "Components / Player List",
 };
 
-export const Story1 = () => (
+export const _BasicPlayersList = () => (
   <div
     style={{
       display: "flex",
@@ -17,10 +17,13 @@ export const Story1 = () => (
       height: "100vh",
     }}
   >
-    <PlayerList title="Players List Title" players={[
-      { badge: "Text", invite: true, title: "This is my player", uid: "123", status: PLAYER_STATUS.ONLINE },
-      { badge: "Text", title: "Next Player", uid: "123", status: PLAYER_STATUS.ONLINE },
-      { badge: "Text", title: "This is my player", uid: "123", status: PLAYER_STATUS.ONLINE }
-      ]} />
+    <PlayerList
+      title="Players List Title"
+      players={[
+        { badge: "Text", invite: true, title: "This is my player", uid: "1", status: PLAYER_STATUS.ONLINE },
+        { badge: "Text", title: "Next Player", uid: "2", status: PLAYER_STATUS.ONLINE },
+        { badge: "Text", title: "This is my player", uid: "3", status: PLAYER_STATUS.ONLINE },
+      ]}
+    />
   </div>
 );

@@ -325,6 +325,20 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     }
   };
 
+  private onGroupAction = (uid: string, accept: boolean) => {
+    if (accept) {
+      this.acceptUsersGroup(uid);
+      this.hideDialogs();
+    }
+  };
+
+  private onEnemyGroupAction = (uid: string, accept: boolean) => {
+    if (accept) {
+      this.acceptUsersGroup(uid);
+      this.hideDialogs();
+    }
+  };
+
   componentDidMount() {
     this.onlineSkip = -1;
     this.pingLoop();
@@ -381,13 +395,19 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
 
             {playersGroup.length > 1 && (
               <div className={styles.PlayersGroup}>
-                <PlayerList title="Your group" active={groupUID} players={playersGroup} onClick={this.onGroupPlayerClick} />
+                <PlayerList title="Your group" active={groupUID} players={playersGroup} onClick={this.onGroupPlayerClick} onAction={this.onGroupAction} />
               </div>
             )}
 
             {playersEnemyGroup.length > 0 && (
               <div className={styles.PlayersGroup}>
-                <PlayerList title="Your opponent group" active={enemyGroupUID} players={playersEnemyGroup} onClick={this.onEnemyGroupPlayerClick} />
+                <PlayerList
+                  title="Your opponent group"
+                  active={enemyGroupUID}
+                  players={playersEnemyGroup}
+                  onClick={this.onEnemyGroupPlayerClick}
+                  onAction={this.onEnemyGroupAction}
+                />
               </div>
             )}
           </div>

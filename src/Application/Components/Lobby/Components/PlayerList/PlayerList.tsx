@@ -27,6 +27,7 @@ export interface IPlayerInfo {
 export interface IPlayerListProps {
   title: string;
   onClick: (e: React.MouseEvent, uid: string) => void;
+  onAction: (uid: string, accept: boolean) => void;
   players: IPlayerInfo[];
   active?: string;
 }
@@ -59,6 +60,7 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
    */
   public static defaultProps: Partial<IPlayerListProps> = {
     onClick: noop,
+    onAction: noop,
     players: [],
   };
 
@@ -76,7 +78,7 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
    * Render PlayerList Component
    */
   public render() {
-    const { title, players, onClick, active } = this.props;
+    const { title, players, onClick, onAction, active } = this.props;
     return (
       <>
         <span className={styles.Title}>{title}</span>
@@ -85,12 +87,16 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
 
         <div className={styles.Section}>
           {players.map((player) => (
-            <div key={`pl_${player.title}`}>
+            <div key={`pl_${player.uid}`}>
               <Item onClick={(e) => onClick(e, player.uid)} active={player.uid === active} {...player} />
               {player.invite && (
                 <div className={styles.Actions}>
-                  <div className={styles.ButtonPrimary}>Accept</div>
-                  <div className={styles.ButtonDanger}>Decline</div>
+                  <div className={styles.ButtonPrimary} onClick={() => onAction(player.uid, true)}>
+                    Accept
+                  </div>
+                  <div className={styles.ButtonDanger} onClick={() => onAction(player.uid, false)}>
+                    Decline
+                  </div>
                 </div>
               )}
             </div>
