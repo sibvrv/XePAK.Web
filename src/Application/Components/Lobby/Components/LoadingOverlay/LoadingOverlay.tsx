@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Loading } from "../../../Common/Loading/Loading";
 
-import {BorderImage} from './BorderImage';
+import { BorderImage } from "./BorderImage";
 import styles from "./Styles/LoadingOverlay.module.css";
 
 /**

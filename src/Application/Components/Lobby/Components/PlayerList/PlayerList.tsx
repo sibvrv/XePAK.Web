@@ -85,7 +85,15 @@ export class PlayerList extends React.Component<IPlayerListProps, IPlayerListSta
 
         <div className={styles.Section}>
           {players.map((player) => (
-            <Item key={`pl_${player.title}`} onClick={(e) => onClick(e, player.uid)} active={player.uid === active} {...player} />
+            <div key={`pl_${player.title}`}>
+              <Item onClick={(e) => onClick(e, player.uid)} active={player.uid === active} {...player} />
+              {player.invite && (
+                <div className={styles.Actions}>
+                  <div className={styles.ButtonPrimary}>Accept</div>
+                  <div className={styles.ButtonDanger}>Decline</div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </>

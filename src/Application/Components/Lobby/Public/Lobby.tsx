@@ -317,7 +317,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
         sdNet.QuickPlay(sdNet.MODE_FFA);
         break;
       case GAME_MODE.MODE_TEAM_DEATH_MATCH:
-        sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM)
+        sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM);
         break;
       case GAME_MODE.MODE_AS_ONE:
         sdNet.QuickPlay(sdNet.MODE_AS_ONE);

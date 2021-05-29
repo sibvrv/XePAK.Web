@@ -39,7 +39,7 @@ const initialState: ILobbyReducerState = {
 export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel>(
   {
     FETCH_ERROR: (state, action) => {
-      alert(JSON.stringify(action.payload.response.parts.join(', ')));
+      alert(JSON.stringify(action.payload.response.parts.join(", ")));
       return state;
     },
     [LOBBY_ACTION.PLAYERS_ONLINE]: (state, action) => {
