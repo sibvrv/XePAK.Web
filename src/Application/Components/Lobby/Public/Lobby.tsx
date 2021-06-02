@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { RouteComponentProps } from "react-router";
 
 import { IAuthReducerState } from "../../../../Store/Reducers/AuthReducer";
 import { ILobbyReducerState, LOBBY_ACTION } from "../../../../Store/Reducers/LobbyReducer";
@@ -25,7 +26,7 @@ export enum GAME_MODE {
 /**
  * Lobby Props Interface
  */
-export interface ILobbyProps extends ILobbyReducerState, Pick<ISystemReducerState, "status">, IAuthReducerState {}
+export interface ILobbyProps extends RouteComponentProps, ILobbyReducerState, Pick<ISystemReducerState, "status">, IAuthReducerState {}
 
 /**
  * Lobby State Interface
@@ -297,6 +298,14 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     }
   };
 
+  public QuickPlay(mode: any) {
+    const { history } = this.props;
+    history.push("/play/");
+    // GAME_MODE.MODE_FFA -> sdNet.MODE_FFA
+    // GAME_MODE.MODE_TEAM_DEATH_MATCH -> sdNet.MODE_TEAM_VS_TEAM
+    // GAME_MODE.MODE_AS_ONE -> sdNet.MODE_AS_ONE
+  }
+
   public onPlayClick = (mode: GAME_MODE) => {
     this.setState({
       userDialog: false,
@@ -314,13 +323,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
         sdNet.OfflineTraining(0);
         break;
       case GAME_MODE.MODE_FFA:
-        sdNet.QuickPlay(sdNet.MODE_FFA);
-        break;
       case GAME_MODE.MODE_TEAM_DEATH_MATCH:
-        sdNet.QuickPlay(sdNet.MODE_TEAM_VS_TEAM);
-        break;
       case GAME_MODE.MODE_AS_ONE:
-        sdNet.QuickPlay(sdNet.MODE_AS_ONE);
+        this.QuickPlay(mode);
         break;
     }
   };
