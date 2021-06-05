@@ -1,17 +1,23 @@
 .Container {
-  padding: 2vmin;
-
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(101, 126, 174, .25);
-  border-radius: 9px;
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03),0 0.9375rem 1.40625rem rgba(4,9,20,0.03),0 0.25rem 0.53125rem rgba(4,9,20,0.05),0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+  border-width: 0;
+  transition: all .2s
 }
 
 .Title {
+  display: flex;
+  align-items: center;
+  height: 1.5vmin;
+
+  text-transform: uppercase;
+  color: rgba(13,27,62,0.7);
   font-weight: bold;
-  line-height: 1.5;
-  color: #212837;
-  margin-bottom: 1vmin;
+  font-size: 1vmin;
+
+  padding: .75vmin 1.25vmin;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(26,54,126,0.125);
 }
 
 .Content {
@@ -20,6 +26,11 @@
 
 .Item {
   display: flex;
+  padding: .75vmin 2vmin;
+}
+
+.Item:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 .ItemTitle {
