@@ -301,6 +301,7 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
   public QuickPlay(mode: any) {
     const { history } = this.props;
     history.push("/play/");
+    console.log(mode);
     // GAME_MODE.MODE_FFA -> sdNet.MODE_FFA
     // GAME_MODE.MODE_TEAM_DEATH_MATCH -> sdNet.MODE_TEAM_VS_TEAM
     // GAME_MODE.MODE_AS_ONE -> sdNet.MODE_AS_ONE

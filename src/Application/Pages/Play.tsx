@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Lobby from "../Components/Lobby";
+import { GameContainer } from "../Components/GameView/Public/GameContainer/GameContainer";
 
 /**
  * Play Props Interface
@@ -39,7 +39,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
   public render() {
     return (
       <>
-        <Lobby />
+        <GameContainer />
       </>
     );
   }

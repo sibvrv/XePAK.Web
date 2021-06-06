@@ -25,7 +25,7 @@ const stories: Record<string, Array<{ name: string; route: string; params?: Part
   //   {name: 'Sign Up', route: ROUTE.PAGE_SIGN_UP},
   // ],
 
-  "Pages / Lobby": [{ name: "Play", route: ROUTE.PAGE_PLAY }],
+  "Pages / Lobby": [{ name: "Play", route: ROUTE.PAGE_LOBBY }],
 };
 
 Object.keys(stories).forEach((storyName) => {

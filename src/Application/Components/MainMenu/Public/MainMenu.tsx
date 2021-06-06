@@ -51,6 +51,9 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
     const { variation } = this.props;
     return (
       <div className={stylesMap[variation]}>
+        <Link to={ROUTE.PAGE_LOBBY} className={styles.MenuItem}>
+          Lobby
+        </Link>
         <Link to={ROUTE.PAGE_RANKING} className={styles.MenuItem}>
           Ranking
         </Link>

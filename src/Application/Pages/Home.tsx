@@ -49,7 +49,7 @@ export class Home extends React.Component<IHomeProps, IHomeState> {
 
           <div>
             <div className="AreYouReady">Are you ready ?</div>
-            <Link to={ROUTE.PAGE_PLAY} className="PlayNow">
+            <Link to={ROUTE.PAGE_LOBBY} className="PlayNow">
               Play Now
             </Link>
           </div>
