@@ -38,10 +38,6 @@ const initialState: ILobbyReducerState = {
 
 export const LobbyReducer = handleActions<ILobbyReducerState, ILobbyReducerModel>(
   {
-    FETCH_ERROR: (state, action) => {
-      alert(JSON.stringify(action.payload.response.parts.join(", ")));
-      return state;
-    },
     [LOBBY_ACTION.ACCEPT_GROUP_INVITE]: (state, action) => {
       const {
         response: { status },

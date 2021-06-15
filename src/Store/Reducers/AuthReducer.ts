@@ -66,6 +66,8 @@ export const AuthReducer = handleActions<IAuthReducerState, IAuthReducerModel>(
           passwordKey: null,
         };
       }
+      // Todo
+      alert(JSON.stringify(action.payload.response.parts.join(", ")));
       return state;
     },
     [AUTH_ACTIONS.LOGOUT]: (state) => {

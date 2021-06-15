@@ -4,7 +4,7 @@ export enum ROUTE {
 
   PAGE_GAME = "/game",
 
-  PAGE_PLAY = "/game/play",
+  PAGE_PLAY = "/play",
   PAGE_LOBBY = "/game/lobby",
 
   PAGE_RANKING = "/ranking",
