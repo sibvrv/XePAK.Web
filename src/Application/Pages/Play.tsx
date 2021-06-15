@@ -37,10 +37,6 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
    * Render Play Component
    */
   public render() {
-    return (
-      <>
-        <GameContainer />
-      </>
-    );
+    return <GameContainer />;
   }
 }

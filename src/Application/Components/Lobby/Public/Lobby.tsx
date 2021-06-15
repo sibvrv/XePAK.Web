@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { RouteComponentProps } from "react-router";
 
+import { ROUTE } from "../../../../Constants/Routing";
 import { IAuthReducerState } from "../../../../Store/Reducers/AuthReducer";
 import { ILobbyReducerState, LOBBY_ACTION } from "../../../../Store/Reducers/LobbyReducer";
 import { ISystemReducerState } from "../../../../Store/Reducers/SystemReducer";
@@ -15,9 +16,9 @@ import { PlayerList } from "../Components/PlayerList/PlayerList";
 import styles from "../Styles/Lobby.module.css";
 
 export enum GAME_MODE {
-  MODE_PRACTICE_VS_AI,
-  MODE_PRACTICE_AI_VS_AI,
   MODE_PRACTICE_SOLO,
+  MODE_PRACTICE_AI_VS_AI,
+  MODE_PRACTICE_VS_AI,
   MODE_FFA,
   MODE_TEAM_DEATH_MATCH,
   MODE_AS_ONE,
@@ -38,8 +39,6 @@ export interface ILobbyState {
   groupUID: string;
   enemyGroupUID: string;
 }
-
-declare let sdNet: any;
 
 const resetUIDs: Partial<ILobbyState> = {
   playerUID: "",
@@ -298,9 +297,15 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
     }
   };
 
+  public OfflinePlay(mode: number) {
+    const { history } = this.props;
+    history.replace(ROUTE.PAGE_PLAY);
+    console.log(mode);
+  }
+
   public QuickPlay(mode: any) {
     const { history } = this.props;
-    history.push("/play/");
+    history.push("/play");
     console.log(mode);
     // GAME_MODE.MODE_FFA -> sdNet.MODE_FFA
     // GAME_MODE.MODE_TEAM_DEATH_MATCH -> sdNet.MODE_TEAM_VS_TEAM
@@ -315,13 +320,9 @@ export class Lobby extends React.Component<ILobbyProps, Partial<ILobbyState>> {
 
     switch (mode) {
       case GAME_MODE.MODE_PRACTICE_VS_AI:
-        sdNet.OfflineTraining(2);
-        break;
       case GAME_MODE.MODE_PRACTICE_AI_VS_AI:
-        sdNet.OfflineTraining(1);
-        break;
       case GAME_MODE.MODE_PRACTICE_SOLO:
-        sdNet.OfflineTraining(0);
+        this.OfflinePlay(mode);
         break;
       case GAME_MODE.MODE_FFA:
       case GAME_MODE.MODE_TEAM_DEATH_MATCH:
