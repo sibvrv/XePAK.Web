@@ -63,6 +63,9 @@ export class MainMenu extends React.Component<IMainMenuProps, IMainMenuState> {
         <Link to={ROUTE.PAGE_STATISTICS} className={styles.MenuItem}>
           Statistics
         </Link>
+        <Link to={ROUTE.PAGE_ABOUT} className={styles.MenuItem}>
+          About
+        </Link>
       </div>
     );
   }
