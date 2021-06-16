@@ -22,7 +22,7 @@ function loadScript(lib: string) {
     script.async = false;
     script.onload = () => {
       resolve();
-      console.log('Loaded', lib);
+      console.log("Loaded", lib);
     };
 
     script.onerror = () => {
@@ -76,7 +76,7 @@ export class GameContainer extends React.Component<IGameContainerProps, IGameCon
       "pub/polyfills.js",
       "pub/app.js",
     ].forEach(async (script) => {
-      await loadScript("/play/" + script);
+      await loadScript(script.indexOf("://") < 0 ? `/play/${script}` : script);
     });
   }
 
@@ -87,6 +87,97 @@ export class GameContainer extends React.Component<IGameContainerProps, IGameCon
     return (
       <>
         <div id="game_container" />
+
+        <div id="lobby_ui" style={{ width: "100%", height: "100%", position: "fixed", left: "0px", top: "0px", display: "none", background: "#fff" }}>
+          <div style={{ position: "absolute", left: "1vh", right: "1vh", top: "1vh", bottom: "1vh", display: "flex", flexDirection: "column" }}>
+            <div className="r_conteiner clickable" style={{ marginBottom: "1vh" }}>
+              <a className="r_conteiner" style={{ display: "inline-block", margin: "0.25vh" }}>
+                Play solo vs AI
+              </a>
+              <a className="r_conteiner" style={{ display: "inline-block", margin: "0.25vh" }}>
+                Play with AI vs AI
+              </a>
+              <a className="r_conteiner" style={{ display: "inline-block", margin: "0.25vh" }}>
+                Play alone
+              </a>
+              <a className="r_conteiner" style={{ display: "inline-block", margin: "0.25vh" }} id="play_ffa_btn">
+                Quick Play FFA <span style={{ color: "rgba(255,255,255,0.3)" }}>(2+ players, multiplayer)</span>
+              </a>
+              <a className="r_conteiner" style={{ display: "inline-block", margin: "0.25vh" }} id="play_tvt_btn">
+                Quick Play TvT <span style={{ color: "rgba(255,255,255,0.3)" }}>(2+ players, multiplayer)</span>
+              </a>
+              <a className="r_conteiner" style={{ display: "inline-block", margin: "0.25vh" }} id="play_as1_btn">
+                Quick Play As One <span style={{ color: "rgba(255,255,255,0.3)" }}>(4+ players, multiplayer)</span>
+              </a>
+
+              <span
+                id="status_field"
+                className="r_conteiner"
+                style={{ display: "inline-block", backgroundColor: "#000", color: "#666", width: "100%", marginTop: "1vh" }}
+              >
+                status
+              </span>
+            </div>
+            <div style={{ display: "flex", flex: 1, flexWrap: "nowrap", overflow: "hidden" }}>
+              <div className="r_conteiner clickable" style={{ width: "34%" }}>
+                <span className="r_conteiner" style={{ fontSize: "1.5vh" }}>
+                  Players in lobby now
+                </span>
+                <div id="online_players" className="clickable" style={{ height: "calc(100% - 5vh)" }}>
+                  Loading...
+                </div>
+              </div>
+              <div className="r_conteiner clickable" style={{ width: "32%", marginLeft: "1%", display: "none" }}>
+                <span className="r_conteiner" style={{ fontSize: "1.5vh" }}>
+                  Your group
+                </span>
+                <div id="group_players" className="clickable" style={{ height: "calc(100% - 5vh)" }}>
+                  Loading...
+                </div>
+              </div>
+              <div className="r_conteiner clickable" style={{ width: "32%", marginLeft: "1%", display: "none" }}>
+                <span className="r_conteiner" style={{ fontSize: "1.5vh" }}>
+                  Your opponent group
+                </span>
+                <div id="enemy_group_players" className="clickable" style={{ height: "calc(100% - 5vh)" }}>
+                  Loading...
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="floating_user_info_bg"
+            style={{ position: "fixed", left: "0px", top: "0px", width: "100%", height: "100%", backgroundColor: "transparent", display: "none" }}
+            className="r_conteiner clickable"
+          >
+            <div
+              id="floating_user_info"
+              style={{ position: "fixed", left: "0px", top: "0px", backgroundColor: "rgba(0,0,0,0.8)" }}
+              className="r_conteiner clickable"
+            />
+          </div>
+        </div>
+
+        <div
+          id="loading_screen"
+          className="clickable"
+          style={{
+            display: "none",
+            background: "repeating-linear-gradient(-45deg, rgba(0,0,0,0.75) 0px, rgba(0,0,0,0.75) 10px, rgba(0,0,0,0.8) 10px, rgba(0,0,0,0.8) 20px)",
+            width: "100%",
+            height: "100%",
+            position: "fixed",
+            left: "0px",
+            top: "0px",
+          }}
+        >
+          <div style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="r_conteiner" style={{ backgroundColor: "rgba(0,0,0,0.75)", textAlign: "center", width: "79vh", padding: "5vh" }}>
+              Building map, please wait...
+              <span style={{ color: "#474" }}>(it can take 15 seconds or more, depending on browser and PC characteristics)</span>
+            </div>
+          </div>
+        </div>
 
         <div id="ingame_hud" style={{ display: "none" }}>
           <div id="mobile_ui" style={{ display: "none" }}>
@@ -847,13 +938,17 @@ export class GameContainer extends React.Component<IGameContainerProps, IGameCon
               <input type="text" defaultValue="?" style={{ width: "15%", display: "inline-block", marginLeft: "1vh" }} />
             </div>
             <a
-              href="javascript:document.getElementById('menu').style.display='none';main.ingame_menu_visible=false;main.GoFullscreen();"
+              /* href="javascript:document.getElementById('menu').style.display='none';main.ingame_menu_visible=false;main.GoFullscreen();" */
               className="r_conteiner"
               style={{ marginBottom: "1vh", backgroundColor: "#254e36" }}
             >
               Continue
             </a>
-            <a href="javascript:sdNet.EndGame();" className="r_conteiner" style={{ backgroundColor: "#482926" }}>
+            <a
+              /* href="javascript:sdNet.EndGame();" */
+              className="r_conteiner"
+              style={{ backgroundColor: "#482926" }}
+            >
               Leave match
             </a>
           </span>
