@@ -7,4 +7,4 @@ header("Pragma: no-cache");
 $template = file_get_contents("./index.html");
 $initialStates = json_encode([]);
 
-echo str_replace("%INITIAL_STATE%", "<script type=\"application/json\">{$initialStates}</script>", $template);
+echo str_replace("%INITIAL_STATE%", "<script type=\"application/json\" data-type=\"initial\">{$initialStates}</script>", $template);
